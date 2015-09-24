@@ -31,12 +31,64 @@ S32 erase_array[5][20] = {
     {9265, 6973, 8169, 5388,  140, 6869, 2344, 9252, 2184, 9248,  534, 2199, 6382, 7479, 8370, 7346, 5337, 5840, 2205, 1176}};
 
 
-int main(){
+int Test(){
     printf("Expected Output:\n");
     printf("   Before first group is erased                -3,        9593 \n");
     printf("   After first group is erased                 -3,        9593\n");
-    printf("    After second group is erased                23,        9593\n");
-    printf("    After third group is erased                140,        9593\n");
-    printf("    After fourth group is erased               140,        9265\n");
-    printf("    When the tree is empty              2147483647, -2147483648\n");
+    printf("   After second group is erased                23,        9593\n");
+    printf("   After third group is erased                140,        9593\n");
+    printf("   After fourth group is erased               140,        9265\n");
+    printf("   When the tree is empty              2147483647, -2147483648\n\n\n\n");
+
+    int erase_index = 0;
+    int i = 0;
+    bst_t* tree = (bst_t*)malloc(sizeof(bst_t));
+    bst_init(tree);
+
+    for (; i < 100; i++){
+        if(bst_insert(tree, value_array[i]) == __FALSE)
+            printf("Error Inserting: %d\n", value_array[i]);
+    }
+    printf("   Before first group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
+
+    erase_index = 0;
+    i=0;
+    for(; i < 20; i++){
+        if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
+            ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
+    }
+    printf("   After first group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
+
+    erase_index = 1;
+    i=0;
+    for(; i < 20; i++){
+        if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
+            ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
+    }
+    printf("   After second group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
+
+    erase_index = 2;
+    i=0;
+    for(; i < 20; i++){
+        if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
+            ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
+    }
+    printf("   After third group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
+
+    erase_index = 3;
+    i=0;
+    for(; i < 20; i++){
+        if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
+            ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
+    }
+    printf("   After fourth group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
+
+    erase_index = 4;
+    i=0;
+    for(; i < 20; i++){
+        if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
+            ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
+    }
+    printf("   When the tree is empty                %d,        %d \n", bst_min(tree), bst_max(tree));
+
 }

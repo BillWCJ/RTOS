@@ -3,6 +3,31 @@
 #include <limits.h>
 #include "bst.h"
 
+BOOL bst_exist( bst_t *tree, S32 val ) {
+    if(tree -> root == NULL)
+        return __FALSE;
+
+    bsn_t* visitor = tree -> root;
+	while (visitor != NULL)
+	{
+		if (visitor -> val == val)
+            return __TRUE;
+        else if (val < visitor -> val)
+            visitor = visitor -> left;
+        else
+            visitor = visitor -> right;
+    }
+    return __FALSE;
+}
+
+bst_t* new_node(S32 val){
+    bsn_t  *newNode = (bsn_t*)malloc(sizeof(bsn_t));
+    newNode -> left = NULL;
+    newNode -> right = NULL;
+    newNode -> val = val;
+    return newNode;
+}
+
 void bst_init( bst_t *tree ) {
     //initalize all values to default
     tree -> root = NULL;
@@ -20,7 +45,7 @@ size_t bst_size( bst_t *tree ) {
 	return tree -> size;
 }
 
-BOOL bst_insert( bst_t *tree, S32 val ) {
+bool bst_insert( bst_t *tree, S32 val ) {
     //____FALSE
 	if (bst_exist(tree, val))
 		return __FALSE;
@@ -60,6 +85,9 @@ BOOL bst_insert( bst_t *tree, S32 val ) {
 }
 
 S32 bst_min( bst_t *tree ) {
+    if(tree -> size <= 0)
+        return INT_MAX;
+
     bsn_t* visitor = tree -> root;
 	while (visitor -> left != NULL)
 	{
@@ -69,6 +97,9 @@ S32 bst_min( bst_t *tree ) {
 }
 
 S32 bst_max( bst_t *tree ) {
+    if(tree -> size <= 0)
+        return INT_MIN;
+
     bsn_t* visitor = tree -> root;
 	while (visitor -> right != NULL)
 	{
@@ -77,7 +108,7 @@ S32 bst_max( bst_t *tree ) {
 	return visitor -> val;
 }
 
-BOOL bst_erase( bst_t *tree, S32 val ) {
+bool bst_erase( bst_t *tree, S32 val ) {
     if (!bst_exist(tree, val))
     	return __FALSE;
 
@@ -206,29 +237,4 @@ BOOL bst_erase( bst_t *tree, S32 val ) {
     	tree -> size--;
     	return __TRUE;
     }
-}
-
-BOOL bst_exist( bst_t *tree, S32 val ) {
-    if(tree -> root == NULL)
-        return __FALSE;
-
-    bsn_t* visitor = tree -> root;
-	while (visitor != NULL)
-	{
-		if (visitor -> val == val)
-            return __TRUE;
-        else if (val < visitor -> val)
-            visitor = visitor -> left;
-        else
-            visitor = visitor -> right;
-    }
-    return __FALSE;
-}
-
-bst_t* new_node(S32 val){
-    bsn_t* newNode = (bsn_t*)malloc(sizeof(bsn_t));
-    newNode -> left = NULL;
-    newNode -> right = NULL;
-    newNode -> val = val;
-    return newNode;
 }
