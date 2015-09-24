@@ -1,16 +1,16 @@
 /******************************************************************************
  * @file:    system_LPC17xx.c
  * @purpose: CMSIS Cortex-M3 Device Peripheral Access Layer Source File
- *           for the NXP LPC17xx Device Series
+ *           for the NXP LPC17xx Device Series 
  * @version: V1.6
  * @date:    12th February 2010
  *----------------------------------------------------------------------------
  *
  * Copyright (C) 2008 ARM Limited. All rights reserved.
  *
- * ARM Limited (ARM) is supplying this software for use with Cortex-M3
- * processor based microcontrollers.  This file can be freely distributed
- * within development tools that are supporting such ARM based processors.
+ * ARM Limited (ARM) is supplying this software for use with Cortex-M3 
+ * processor based microcontrollers.  This file can be freely distributed 
+ * within development tools that are supporting such ARM based processors. 
  *
  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
@@ -22,7 +22,7 @@
 
 
 #include <stdint.h>
-//#include "LPC17xx.h"
+#include "LPC17xx.h"
 
 /*
 //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
@@ -374,7 +374,7 @@
 /*----------------------------------------------------------------------------
   DEFINES
  *----------------------------------------------------------------------------*/
-
+    
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
@@ -450,19 +450,19 @@ void SystemInit (void)
     switch (LPC_SC->CLKSRCSEL & 0x03) {
       case 0:                           /* Internal RC oscillator => PLL0     */
       case 3:                           /* Reserved, default to Internal RC   */
-        SystemFrequency = (IRC_OSC *
+        SystemFrequency = (IRC_OSC * 
                           ((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1)))  /
                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1)    /
                           ((LPC_SC->CCLKCFG & 0xFF)+ 1));
         break;
       case 1:                           /* Main oscillator => PLL0            */
-        SystemFrequency = (OSC_CLK *
+        SystemFrequency = (OSC_CLK * 
                           ((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1)))  /
                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1)    /
                           ((LPC_SC->CCLKCFG & 0xFF)+ 1));
         break;
       case 2:                           /* RTC oscillator => PLL0             */
-        SystemFrequency = (RTC_CLK *
+        SystemFrequency = (RTC_CLK * 
                           ((2 * ((LPC_SC->PLL0STAT & 0x7FFF) + 1)))  /
                           (((LPC_SC->PLL0STAT >> 16) & 0xFF) + 1)    /
                           ((LPC_SC->CCLKCFG & 0xFF)+ 1));

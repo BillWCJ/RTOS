@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <limits.h>
-#include "../GLCD/Font_6x8_h.h"
-#include "../GLCD/Font_16x24_h.h"
-#include "../GLCD/GLCD.h"
-#include "../GLCD/GLCD_Scroll.h"
-#include "../GLCD/GLCD_Scroll.c"
-#include "../GLCD/GLCD_SPI_LPC1700.c"
-#include "../GLCD/Retarget.c"
+//#include "../GLCD/Font_6x8_h.h"
+//#include "../GLCD/Font_16x24_h.h"
+//#include "../GLCD/GLCD.h"
+//#include "../GLCD/GLCD_Scroll.h"
+//#include "../GLCD/GLCD_Scroll.c"
+//#include "../GLCD/GLCD_SPI_LPC1700.c"
+//#include "../GLCD/Retarget.c"
 #include "bst.h"
-#include "bst.c"
+//#include "bst.c"
 
 S32 value_array[100] = {
     534, 6415,  465, 4459, 6869, 4442, 5840, 4180, 7450, 9265,
