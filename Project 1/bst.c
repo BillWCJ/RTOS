@@ -4,10 +4,12 @@
 #include "bst.h"
 
 BOOL bst_exist( bst_t *tree, S32 val ) {
-    if(tree -> root == NULL)
+
+	bsn_t* visitor = tree -> root;
+	
+	if(tree -> root == NULL)
         return __FALSE;
 
-    bsn_t* visitor = tree -> root;
 	while (visitor != NULL)
 	{
 		if (visitor -> val == val)
@@ -20,7 +22,7 @@ BOOL bst_exist( bst_t *tree, S32 val ) {
     return __FALSE;
 }
 
-bst_t* new_node(S32 val){
+bsn_t* new_node(S32 val){
     bsn_t  *newNode = (bsn_t*)malloc(sizeof(bsn_t));
     newNode -> left = NULL;
     newNode -> right = NULL;
@@ -30,6 +32,7 @@ bst_t* new_node(S32 val){
 
 void bst_init( bst_t *tree ) {
     //initalize all values to default
+		tree	= (bst_t*)malloc(sizeof(bst_t));
     tree -> root = NULL;
     tree -> size = 0;
 }
@@ -46,7 +49,8 @@ size_t bst_size( bst_t *tree ) {
 }
 
 bool bst_insert( bst_t *tree, S32 val ) {
-    //____FALSE
+	bsn_t* visitor = tree -> root;
+	
 	if (bst_exist(tree, val))
 		return __FALSE;
 
@@ -57,7 +61,6 @@ bool bst_insert( bst_t *tree, S32 val ) {
     	return __TRUE;
 	}
 
-    bsn_t* visitor = tree -> root;
     while(visitor -> val != val)
 	{
 		if(visitor -> val > val)
@@ -85,10 +88,11 @@ bool bst_insert( bst_t *tree, S32 val ) {
 }
 
 S32 bst_min( bst_t *tree ) {
+    bsn_t* visitor = tree -> root;
+	
     if(tree -> size <= 0)
         return INT_MAX;
 
-    bsn_t* visitor = tree -> root;
 	while (visitor -> left != NULL)
 	{
 		visitor = visitor -> left;
@@ -97,10 +101,11 @@ S32 bst_min( bst_t *tree ) {
 }
 
 S32 bst_max( bst_t *tree ) {
+    bsn_t* visitor = tree -> root;
+	
     if(tree -> size <= 0)
         return INT_MIN;
 
-    bsn_t* visitor = tree -> root;
 	while (visitor -> right != NULL)
 	{
 		visitor = visitor -> right;

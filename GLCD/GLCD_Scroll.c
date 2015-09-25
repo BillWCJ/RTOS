@@ -9,7 +9,7 @@
 *
 * Copyright (c) 2014. All rights reserved.
 *----------------------------------------------------------------------------*/
-#include <LPC17xx.h>
+//#include <LPC17xx.h>
 #include <stdlib.h>
 #include "glcd.h"
 #include "glcd_scroll.h"

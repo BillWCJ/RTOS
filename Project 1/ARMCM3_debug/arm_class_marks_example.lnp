@@ -1,0 +1,9 @@
+--cpu Cortex-M3
+".\armcm3_debug\arm_class_marks_example_f32.o"
+".\armcm3_debug\bst.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM3l_math.lib"
+".\armcm3_debug\startup_armcm3.o"
+".\armcm3_debug\system_armcm3.o"
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\ARMCM3_debug\arm_class_marks_example.map" -o .\ARMCM3_debug\arm_class_marks_example.axf

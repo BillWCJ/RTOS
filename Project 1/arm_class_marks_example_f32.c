@@ -1,3 +1,95 @@
+/* ----------------------------------------------------------------------
+* Copyright (C) 2010-2012 ARM Limited. All rights reserved.
+*
+* $Date:         17. January 2013
+* $Revision:     V1.4.0
+*
+* Project:       CMSIS DSP Library
+* Title:         arm_class_marks_example_f32.c
+*
+* Description:   Example code to calculate Minimum, Maximum
+*                Mean, std and variance of marks obtained in a class
+*
+* Target Processor: Cortex-M4/Cortex-M3
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+*   - Redistributions of source code must retain the above copyright
+*     notice, this list of conditions and the following disclaimer.
+*   - Redistributions in binary form must reproduce the above copyright
+*     notice, this list of conditions and the following disclaimer in
+*     the documentation and/or other materials provided with the
+*     distribution.
+*   - Neither the name of ARM LIMITED nor the names of its contributors
+*     may be used to endorse or promote products derived from this
+*     software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+* COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.
+* -------------------------------------------------------------------- */
+
+/**
+ * @ingroup groupExamples
+ */
+
+/**
+ * @defgroup ClassMarks Class Marks Example
+ *
+ * \par Description:
+ * \par
+ * Demonstrates the use the Maximum, Minimum, Mean, Standard Deviation, Variance
+ * and Matrix functions to calculate statistical values of marks obtained in a class.
+ *
+ * \note This example also demonstrates the usage of static initialization.
+ *
+ * \par Variables Description:
+ * \par
+ * \li \c testMarks_f32 points to the marks scored by 20 students in 4 subjects
+ * \li \c max_marks     Maximum of all marks
+ * \li \c min_marks     Minimum of all marks
+ * \li \c mean          Mean of all marks
+ * \li \c var           Variance of the marks
+ * \li \c std           Standard deviation of the marks
+ * \li \c numStudents   Total number of students in the class
+ *
+ * \par CMSIS DSP Software Library Functions Used:
+ * \par
+ * - arm_mat_init_f32()
+ * - arm_mat_mult_f32()
+ * - arm_max_f32()
+ * - arm_min_f32()
+ * - arm_mean_f32()
+ * - arm_std_f32()
+ * - arm_var_f32()
+ *
+ * <b> Refer  </b>
+ * \link arm_class_marks_example_f32.c \endlink
+ *
+ */
+
+
+/** \example arm_class_marks_example_f32.c
+  */
+//#include "arm_math.h"
+//#include "w52jiang_pshering_1.c"
+
+//int32_t main()
+//{
+//    Test();
+//}
+
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <limits.h>
@@ -31,9 +123,9 @@ S32 erase_array[5][20] = {
     {9265, 6973, 8169, 5388,  140, 6869, 2344, 9252, 2184, 9248,  534, 2199, 6382, 7479, 8370, 7346, 5337, 5840, 2205, 1176}};
 
 
-int Test(){
+int32_t main(){
 		int erase_index = 0;
-    int i = 0;
+    int i = 0, min = 0, max = 0;
     bst_t* tree;
     bst_init(tree);
 	
@@ -49,6 +141,8 @@ int Test(){
         if(bst_insert(tree, value_array[i]) == __FALSE)
             printf("Error Inserting: %d\n", value_array[i]);
     }
+		min = bst_min(tree);
+		max = bst_max(tree);
     printf("   Before first group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
 
     erase_index = 0;
@@ -57,6 +151,8 @@ int Test(){
         if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
             ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
     }
+		min = bst_min(tree);
+		max = bst_max(tree);
     printf("   After first group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
 
     erase_index = 1;
@@ -65,6 +161,8 @@ int Test(){
         if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
             ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
     }
+		min = bst_min(tree);
+		max = bst_max(tree);
     printf("   After second group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
 
     erase_index = 2;
@@ -73,6 +171,8 @@ int Test(){
         if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
             ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
     }
+		min = bst_min(tree);
+		max = bst_max(tree);
     printf("   After third group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
 
     erase_index = 3;
@@ -81,6 +181,8 @@ int Test(){
         if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
             ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
     }
+		min = bst_min(tree);
+		max = bst_max(tree);
     printf("   After fourth group is erased                %d,        %d \n", bst_min(tree), bst_max(tree));
 
     erase_index = 4;
@@ -89,6 +191,8 @@ int Test(){
         if(bst_erase(tree, erase_array[erase_index][i]) == __TRUE)
             ;//printf("Error deleting: %d\n", erase_array[erase_index][i]);
     }
+		min = bst_min(tree);
+		max = bst_max(tree);
     printf("   When the tree is empty                %d,        %d \n", bst_min(tree), bst_max(tree));
 		return 1;
 }

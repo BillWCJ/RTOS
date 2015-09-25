@@ -1,0 +1,38 @@
+Dependencies for Project 'arm_class_marks_example', Target 'ARMCM3': (DO NOT MODIFY !)
+F (.\arm_class_marks_example_f32.c)(0x56049044)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I "C:\Users\BillWenChao\Dropbox\Software Projects\MTE 241\Project 1\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DARMCM3 -DARM_MATH_CM3-o .\armcm3_debug\arm_class_marks_example_f32.o --omf_browse .\armcm3_debug\arm_class_marks_example_f32.crf --depend .\armcm3_debug\arm_class_marks_example_f32.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\ARMCC\include\limits.h)(0x55AF9EB2)
+I (bst.h)(0x560465F3)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AF9EB2)
+I (type.h)(0x55EF2F7F)
+F (.\bst.c)(0x56048E18)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I "C:\Users\BillWenChao\Dropbox\Software Projects\MTE 241\Project 1\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DARMCM3 -DARM_MATH_CM3-o .\armcm3_debug\bst.o --omf_browse .\armcm3_debug\bst.crf --depend .\armcm3_debug\bst.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\ARMCC\include\limits.h)(0x55AF9EB2)
+I (bst.h)(0x560465F3)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AF9EB2)
+I (type.h)(0x55EF2F7F)
+F (.\bst.h)(0x560465F3)()
+F (.\type.h)(0x55EF2F7F)()
+F (.\Abstract.txt)(0x5373C600)()
+F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM0l_math.lib)(0x5424079C)()
+F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM3l_math.lib)(0x5424079C)()
+F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib)(0x5424079C)()
+F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Lib\ARM\arm_cortexM7lfsp_math.lib)(0x5424079C)()
+F (RTE\Device\ARMCM0\startup_ARMCM0.s)(0x5373C600)()
+F (RTE\Device\ARMCM0\system_ARMCM0.c)(0x5373C600)()
+F (RTE\Device\ARMCM3\startup_ARMCM3.s)(0x5373C600)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I "C:\Users\BillWenChao\Dropbox\Software Projects\MTE 241\Project 1\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\Include--pd "__UVISION_VERSION SETA 516" --pd "_RTE_ SETA 1" --pd "ARMCM3 SETA 1"--list .\armcm3_debug\startup_armcm3.lst --xref -o .\armcm3_debug\startup_armcm3.o --depend .\armcm3_debug\startup_armcm3.d)
+F (RTE\Device\ARMCM3\system_ARMCM3.c)(0x5373C600)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I "C:\Users\BillWenChao\Dropbox\Software Projects\MTE 241\Project 1\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\Include-D__UVISION_VERSION="516" -D_RTE_ -DARMCM3 -DARM_MATH_CM3-o .\armcm3_debug\system_armcm3.o --omf_browse .\armcm3_debug\system_armcm3.crf --depend .\armcm3_debug\system_armcm3.d)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include\ARMCM3.h)(0x5410A20C)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm3.h)(0x5509E4C4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AF9EB2)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h)(0x5509E4C4)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x5509E4C4)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include\system_ARMCM3.h)(0x50B3831C)
+F (RTE\Device\ARMCM4_FP\startup_ARMCM4.s)(0x5373C600)()
+F (RTE\Device\ARMCM4_FP\system_ARMCM4.c)(0x53FCDB9A)()
+F (RTE\Device\ARMCM7_SP\startup_ARMCM7.s)(0x54108AEA)()
+F (RTE\Device\ARMCM7_SP\system_ARMCM7.c)(0x54108AEA)()
