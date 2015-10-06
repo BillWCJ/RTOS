@@ -13,7 +13,7 @@
 // How many random blocks are allocated and removed. This random blocks are at most 2*RNDM_TESTS
 #define RNDM_TESTS	100
 
-//DO_PRINT allows or prevents the printf statements from being called. The elapsed time printf is the only statement that is run. 
+//DO_PRINT allows or prevents the printf statements from being called. The elapsed time printf is the only statement that is run.
 #define DO_PRINT
 
 /**-----------------------------------------------------------------Timer part--------------------------------------------------------*/
@@ -22,9 +22,9 @@ volatile uint32_t msTicks;
 volatile uint8_t run_timer;
 
 // SysTick interrupt Handler.
-void SysTick_Handler( void )  {                               
+void SysTick_Handler( void )  {
 	if ( run_timer ) {
-		++msTicks;  
+		++msTicks;
 	}
 }
 
@@ -33,7 +33,7 @@ __inline TimerInit(){
 	msTicks = 0;
 	run_timer = 0;
 	/* Configure SysTick to generate an interrupt every millisecond */
-	while ( SysTick_Config(SystemCoreClock / 1000) )  {                                   
+	while ( SysTick_Config(SystemCoreClock / 1000) )  {
 		/* Check return code for errors */
 	}
 }
@@ -123,7 +123,7 @@ pair_t find_violation( block_t * blk_arr, size_t len ) {
 	pair_t result;
 	uint32_t i;
 	block_t empty_blk;
-	
+
 	qsort( blk_arr, len, sizeof(block_t), cmpr_blks );
 
 	empty_blk.ptr = NULL;
@@ -146,7 +146,7 @@ pair_t find_violation( block_t * blk_arr, size_t len ) {
 
 uint32_t log_2( uint32_t n ) {
 	uint32_t b, m;
-	
+
 	if ( n <= 0 ) {
 		#ifdef DO_PRINT
 			printf( "log_2(0) is wrong\n" );
@@ -169,7 +169,7 @@ uint32_t log_2( uint32_t n ) {
 bool test_max_alc( void ) {
 	bool rslt = true;
 	uint32_t blk_sz, max_blk_sz;
-	
+
 	half_init();
 
 	blk_sz = find_max_block();
@@ -184,7 +184,7 @@ bool test_max_alc( void ) {
 		// The algorithm wasted more than 1% of memory.
 		rslt = false;
 	}
-	
+
 	return rslt;
 }
 
@@ -200,7 +200,7 @@ bool test_alc_free_max( void ) {
 	if ( ptr == NULL ) {
 		rslt = false;
 	}
-	
+
 	return rslt;
 }
 
@@ -209,7 +209,7 @@ bool test_static_alc_free( void ) {
 	bool rslt = true;
 	uint32_t max_sz;
 	void *ptr_1, *ptr_2, *ptr_3, *ptr_4, *ptr_5, *ptr_6;
-	
+
 	half_init();
 
 	max_sz = find_max_block();
@@ -298,7 +298,7 @@ bool test_static_alc_free_violation( void ) {
 	size_t max_sz, blks_sz;
 	block_t blks[5];
 	void* ptr_1;
-	
+
 	half_init();
 	max_sz = find_max_block();
 
@@ -388,14 +388,14 @@ bool test_rndm_alc_free( void ) {
 	half_init();
 
 	max_sz = find_max_block();
-	
+
 	// 'alc_rec' stores how many times 'half_alloc' successfully returns a requested block.
 	alc_rec = 0;
 
 	// Allocating random memory blocks
 	for ( i = 0; i < RNDM_TESTS; ++i ) {
 
-		// Making a new memory block and storing its pointer in the array 
+		// Making a new memory block and storing its pointer in the array
 		size_t blk_sz = get_random_block_size();
 		block_t blk;
 		blk.ptr = half_alloc(blk_sz);
@@ -416,7 +416,7 @@ bool test_rndm_alc_free( void ) {
 	if ( is_violated(find_violation(blks, blks_sz)) ) {
 		return false;
 	}
-	
+
 	// Free almost half of the allocation blocks
 	for ( i = 0; i < RNDM_TESTS >> 1 ; ++i ) {
 		if ( (rand() % 2) && (blks_sz > 0) ) {
@@ -447,7 +447,7 @@ bool test_rndm_alc_free( void ) {
 			}
 		}
 	}
-	
+
 	// Checking any violation
 	if ( is_violated( find_violation( blks, blks_sz ) ) ) {
 		return false;
@@ -488,7 +488,7 @@ bool test_max_alc_1_byte( void ) {
 	bool rslt = true;
 	uint32_t c = 0;
 	size_t max_sz;
-	
+
 	half_init();
 
 	max_sz = find_max_block();
@@ -521,11 +521,11 @@ bool test_max_alc_rand_byte( void ) {
 
 
 int main( void ) {
-	
+
 	SystemInit();
 	SystemCoreClockUpdate();
 	TimerInit();
-	
+
 	TimerStart(); {
 		printf( "test_max_alc:                   %i\n",                   test_max_alc() );
 		printf( "test_alc_free_max:              %i\n",              test_alc_free_max() );
@@ -534,9 +534,9 @@ int main( void ) {
 		printf( "test_rndm_alc_free:             %i\n",             test_rndm_alc_free() );
 		printf( "test_max_alc_1_byte:            %i\n",            test_max_alc_1_byte() );
 	} TimerStop();
-	
+
 	printf( "The elappsed time:              %d ms\n", current_elapsed_time() );
-	
+
 	while( 1 ) {
 		// Infinite loop
 	}
