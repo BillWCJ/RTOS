@@ -1,12 +1,12 @@
 # depslib dependency file v1.0
-1444177976 source:c:\users\billwenchao\dropbox\software projects\mte 241\project 2\main.c
+1444180348 source:c:\users\billwenchao\dropbox\software projects\mte 241\project 2\main.c
 	<stdio.h>
 	<stdlib.h>
 	"half_fit.h"
 
 1444178490 c:\users\billwenchao\dropbox\software projects\mte 241\project 2\half_fit.h
 
-1444178608 source:c:\users\billwenchao\dropbox\software projects\mte 241\project 2\half_fit.c
+1444183360 source:c:\users\billwenchao\dropbox\software projects\mte 241\project 2\half_fit.c
 	<stdio.h>
 	<stdlib.h>
 	"half_fit.h"
