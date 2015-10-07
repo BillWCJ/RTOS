@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include "half_fit.h"
 
-
 int main(void){
-    printf("%d\n",sizeof(UnallocatedBlock_t));
-    printf("%d\n",sizeof(AllocatedBlock_t));
-
 /*
 AllocatedBlock_t* theAddress;
 theAddress->Allocated;
