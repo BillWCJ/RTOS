@@ -33,9 +33,28 @@ int ceil_log2(unsigned long long x)
   return y;
 }
 
+unsigned int GetRelativeAddress(void* pointer){
+    unsigned int relativeAddress = (pointer-p_start)/32;
+    return relativeAddress;
+}
+
+void* GetAbsoluteAddress (unsigned int relativeAddress){
+    int AbsoluteAddress = (relativeAddress*32)+p_start;
+    return (void*)AbsoluteAddress;
+}
+
+//this function assume the allocated header is set correctly
 void PushToBucket(UnallocatedBlock_t* pointer){
-    int bucketNum = ceil_log2(pointer);
+    int bucketNum = ceil_log2(pointer->Header.Size);
     if(bucketNum < 0 || bucketNum >= 11)
+        return;//bucket out of range
+
+    if(BucketArray[bucketNum] == NULL){ //if bucket is empty, set it to the current one
+        BucketArray[bucketNum] = pointer;
+    }
+
+    pointer->NextFree = GetRelativeAddress(BucketArray[bucketNum]);//set next free to the old first block in bucket or itself if it was empty
+    pointer->PrevFree = GetRelativeAddress(pointer);//set prev free to itself to indicate nothing
 }
 UnallocatedBlock_t* PopBucket (int chunks){
 
@@ -63,8 +82,10 @@ size is the number of bytes that the user wants to allocate
 **********/
 void *half_alloc( int size ){
     size += 4; // 4 bytes are required for header
-    int bucket = (size+31)/32; // this divide size by 32 and ceil it
-
+    int chunks = (size+31)/32; // this divide size by 32 and ceil it to get chunks
+    UnallocatedBlock_t* newBlock = PopBucket(chunks);
+    if(newBlock == NULL)
+        return NULL;
 
 }
 
