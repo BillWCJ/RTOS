@@ -34,4 +34,4 @@ void half_free(void *);
 #endif
 
 
-// use the S16 and mask to read from it
+// use the S16 and mask to read from it for the array

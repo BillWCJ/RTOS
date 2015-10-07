@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "half_fit.h"
 
 UnallocatedBlock_t* BucketArray[11] = {};
@@ -37,7 +38,17 @@ void PushToBucket(UnallocatedBlock_t* pointer){
     int bucketNum = ceil_log2(pointer);
     if(bucketNum < 0 || bucketNum >= 11)
 }
+
 UnallocatedBlock_t* PopBucket (int chunks){
+    int bucketNum = ceil_log2(chunks) + 1; // +1 because you take the guaranteed bucket
+    if(bucketNum < 0 || bucketNum >= 11)
+        return NULL;
+    while(BucketArray[bucketNum] == NULL) {
+        bucketNum = bucketNum + 1;
+        if (bucketNum >= 11)
+            return NULL;
+    }
+    
 
 }
 
@@ -53,7 +64,6 @@ void  half_init( void ){
     for(;i < 11; i++){
         BucketArray[i] = NULL;
     }
-
 }
 
 /**********
@@ -64,7 +74,7 @@ size is the number of bytes that the user wants to allocate
 void *half_alloc( int size ){
     size += 4; // 4 bytes are required for header
     int numChunk = (size+31)/32; // this divide size by 32 and ceil it REWRITE IN BITWISE
-
+    UnallocatedBlock_t * freeBlock = PopBucket(numChunk);
 
 }
 
