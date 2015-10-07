@@ -2,7 +2,6 @@
 #define HALF_FIT_H_
 
 #define ARR_SZ 32768
-
 /*
  * Author names:
  *   1.  uWaterloo User ID:  w52jiang@uwaterloo.ca

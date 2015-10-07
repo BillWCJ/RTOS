@@ -31,9 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="half_fit.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="half_fit.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="type.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
