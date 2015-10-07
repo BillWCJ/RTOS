@@ -89,7 +89,57 @@ void *half_alloc( int size ){
 
 }
 
-void  half_free( void * pointer){
-
+void RemoveBlockFromBucket (UnallocatedBlock_t* pointer){
+    unsigned int CurrentRelative = GetRelativeAddress(pointer);
+    //assign prevfree's next free pointer
+    if(pointer->PrevFree == CurrentRelative){// popping the first one on the list. there is no prev free
+        BucketArray[bucketNum] = (UnallocatedBlock_t*)GetAbsoluteAddress(pointer->NextFree);
+        if (BucketArray[bucketNum] == pointer){ // only one thing in the bucket
+            BucketArray[bucketNum] = NULL;
+        }else{
+            BucketArray[bucketNum]->PrevFree = pointer->NextFree; //point it to itself so to indicate there is nothing before it
+        }
+    }
+    else if (pointer->NextFree == CurrentRelative){//popping the last one on the list and there is more than on in the list
+        ((UnallocatedBlock_t*)GetAbsoluteAddress(pointer->PrevFree))->NextFree = pointer->PrevFree;
+    }
+    else{
+        ((UnallocatedBlock_t*)GetAbsoluteAddress(pointer->PrevFree))->NextFree = pointer->PrevFree;
+        ((UnallocatedBlock_t*)GetAbsoluteAddress(pointer->NextFree))->PrevFree = pointer->NextFree;
+    }
 }
 
+void  half_free( void * pointer){
+    UnallocatedBlock_t* CurrentBlockHeader = (UnallocatedBlock_t*)(pointer-4);
+    int size = CurrentBlockHeader->Header.Size;
+    UnallocatedBlock_t* FirstCoalesceBlock = CurrentBlockHeader;
+    UnallocatedBlock_t* LastCoalesceBlock = CurrentBlockHeader;
+    UnallocatedBlock_t* PrevBlock = (AllocatedBlock_t*)GetAbsoluteAddress(CurrentBlockHeader->Header.PrevBlock);
+    UnallocatedBlock_t* NextBlock = (AllocatedBlock_t*)GetAbsoluteAddress(CurrentBlockHeader->Header.NextBlock);
+    UnallocatedBlock_t* NextBlockAfterCoalesce = NULL;
+
+    if(!PrevBlock->Header.Allocated){
+        FirstCoalesceBlock = PrevBlock;
+        size += PrevBlock->Header.Size;
+        RemoveBlockFromBucket(PrevBlock);
+    }
+    if(!NextBlock->Header.Allocated){
+        LastCoalesceBlock = NextBlock;
+        size += NextBlock->Header.Size;
+        RemoveBlockFromBucket(NextBlock);
+    }
+
+    //Prev block should be already set
+    FirstCoalesceBlock->Header.Allocated = 0;
+    FirstCoalesceBlock->Header.Size = size;
+
+    FirstCoalesceBlock->Header.NextBlock = LastCoalesceBlock->Header.NextBlock;
+    if(LastCoalesceBlock->Header.NextBlock == GetRelativeAddress(LastCoalesceBlock)){//there is no nextblock
+        FirstCoalesceBlock->Header.NextBlock = GetRelativeAddress(FirstCoalesceBlock)
+    }
+    else{
+        NextBlockAfterCoalesce = GetAbsoluteAddress(LastCoalesceBlock->Header.NextBlock);
+        NextBlockAfterCoalesce->Header.PrevBlock = GetRelativeAddress(FirstCoalesceBlock);
+    }
+    PushToBucket(FirstCoalesceBlock);
+}
