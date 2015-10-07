@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="Project_2" targetName="Project_2" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
+    <ADDITIONAL_GENERATION_ENVIRONMENT>
+      <envs />
+    </ADDITIONAL_GENERATION_ENVIRONMENT>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="77718031-9b0d-4415-b748-3e55075d4c17" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example.axf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM0_debug/arm_class_marks_example_f32.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example_f32.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example_f32.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM0_debug/bst.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/bst.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/bst.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/obj/Debug/bst.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/obj/Debug/half_fit.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/obj/Debug/main.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/obj/Debug/main.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/startup_armcm3.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM0_debug/system_armcm0.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/system_armcm3.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/system_armcm3.o" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM0_debug/system_lpc17xx.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/system_lpc17xx.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM0_debug/w52jiang_pshering_1.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/w52jiang_pshering_1.crf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/Abstract.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/Font_16x24_h.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/Font_6x8_h.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/GLCD.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/GLCD_SPI_LPC1700.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/GLCD_Scroll.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/GLCD_Scroll.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/LPC17xx.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/Project 1.cbp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/Project 1.depend" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/Project 1.layout" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project 2.cbp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project 2.depend" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project 2.layout" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/RTE_Components.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GLCD/Retarget.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example.build_log.htm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example.htm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/arm_class_marks_example.ini" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example.lnp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/arm_class_marks_example.uvguix.BillWenChao" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/arm_class_marks_example.uvoptx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/arm_class_marks_example.uvprojx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example_ARMCM3.dep" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/arm_class_marks_example_f32.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/arm_class_marks_example_f32.d" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/bst.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/bst.d" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/bst.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/half_fit.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/half_fit.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/half_fit_test.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/main.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM0/startup_ARMCM0.s" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM3/startup_ARMCM3.s" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM4_FP/startup_ARMCM4.s" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM7_SP/startup_ARMCM7.s" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/startup_armcm3.d" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/startup_armcm3.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM0/system_ARMCM0.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM3/system_ARMCM3.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM4_FP/system_ARMCM4.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/RTE/Device/ARMCM7_SP/system_ARMCM7.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/system_LPC17xx.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system_LPC17xx.c" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/ARMCM3_debug/system_armcm3.d" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/type.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/type.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Project 1/w52jiang_pshering_1.c" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Project 1 - Binary Tree/Project 1/bst.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Project 1 - Binary Tree/Project 1/bst.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Project 1 - Binary Tree/Project 1/system_LPC17xx.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Project 1 - Binary Tree/Project 1/type.h" afterPath="" />
+    </list>
+    <ignored path="Project 2.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="Project 2" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="half_fit.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/half_fit.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.79136693">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="half_fit.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/half_fit.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="half_fit_test.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/half_fit_test.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/half_fit.h" />
+        <option value="$PROJECT_DIR$/half_fit.c" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1260" />
+    <option name="height" value="733" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project 2" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project 2" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project 2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Application.Build All">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project_2" TARGET_NAME="Project_2" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Project_2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Project_2" TARGET_NAME="Project_2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project_2" RUN_TARGET_NAME="Project_2">
+      <envs />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Project_2" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="77718031-9b0d-4415-b748-3e55075d4c17" name="Default" comment="" />
+      <created>1444175898620</created>
+      <option name="number" value="Default" />
+      <updated>1444175898620</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1260" height="733" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298193" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="MAXIMUM_HISTORY_ROWS" value="2000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/half_fit_test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/half_fit.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/half_fit.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79136693">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

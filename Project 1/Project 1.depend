@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1443134607 source:c:\users\billwenchao\dropbox\software projects\mte 241\project 1\bst.c
+	<stdio.h>
+	<stdbool.h>
+	<limits.h>
+	"bst.h"
+
+1443132419 c:\users\billwenchao\dropbox\software projects\mte 241\project 1\bst.h
+	<stdint.h>
+	<stdlib.h>
+	<stdbool.h>
+	"type.h"
+
+1441742223 c:\users\billwenchao\dropbox\software projects\mte 241\project 1\type.h
+
+1443133721 source:c:\users\billwenchao\dropbox\software projects\mte 241\project 1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"w52jiang_pshering_1.c"
+
+1443134314 c:\users\billwenchao\dropbox\software projects\mte 241\project 1\w52jiang_pshering_1.c
+	<stdio.h>
+	<stdbool.h>
+	<limits.h>
+	"bst.h"
+
