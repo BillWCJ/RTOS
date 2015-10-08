@@ -30,6 +30,15 @@ void *half_alloc(int);
 // or void *half_alloc( unsigned int );
 void half_free(void *);
 
+//other functions
+void inline RemoveBlockFromBucket(UnallocatedBlock_t* pointer);
+int inline ceil_log2(unsigned long long x);
+unsigned int inline GetRelativeAddress(void* pointer);
+void inline * GetAbsoluteAddress(unsigned int relativeAddress);
+void inline PushToBucket(UnallocatedBlock_t* pointer);
+inline AllocatedBlock_t * splitBlock(UnallocatedBlock_t *freeBlock, int numChunk);
+
+
 #endif
 
 
