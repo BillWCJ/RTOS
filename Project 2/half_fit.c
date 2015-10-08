@@ -4,10 +4,25 @@
 #include "half_fit.h"
 
 UnallocatedBlock_t *BucketArray[11] = {};
+int LowerLimit[11] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
 static char array[ARR_SZ];
 //The base address. On keil this would be 0x10000000, but on our computer we have to use a dynamic one
 void *p_start = array;
 
+void print(void){
+    void*a = p_start;
+    UnallocatedBlock_t* a0 = BucketArray[0];
+    UnallocatedBlock_t* a1 = BucketArray[1];
+    UnallocatedBlock_t* a2 = BucketArray[2];
+    UnallocatedBlock_t* a3 = BucketArray[3];
+    UnallocatedBlock_t* a4 = BucketArray[4];
+    UnallocatedBlock_t* a5 = BucketArray[5];
+    UnallocatedBlock_t* a6 = BucketArray[6];
+    UnallocatedBlock_t* a7 = BucketArray[7];
+    UnallocatedBlock_t* a8 = BucketArray[8];
+    UnallocatedBlock_t* a9 = BucketArray[9];
+    UnallocatedBlock_t* a10 = BucketArray[10];
+}
 
 int inline ceil_log2(unsigned long long x) {
     static const unsigned long long t[6] = {
@@ -47,7 +62,10 @@ inline void *GetAbsoluteAddress(unsigned int relativeAddress) {
 
 //this function assume the allocated header is set correctly
 void inline PushToBucket(UnallocatedBlock_t *pointer) {
-    int bucketNum = ceil_log2(pointer->Header.Size);
+    unsigned int size = pointer->Header.Size;
+    if (size == 0)
+        size = 1024;
+    int bucketNum = ceil_log2(size);
     if (bucketNum < 0 || bucketNum >= 11)
         return;//bucket out of range
 
@@ -55,13 +73,16 @@ void inline PushToBucket(UnallocatedBlock_t *pointer) {
         BucketArray[bucketNum] = pointer;
     }
 
-    pointer->NextFree = GetRelativeAddress(
-            BucketArray[bucketNum]);//set next free to the old first block in bucket or itself if it was empty
+    pointer->NextFree = GetRelativeAddress(BucketArray[bucketNum]);//set next free to the old first block in bucket or itself if it was empty
     pointer->PrevFree = GetRelativeAddress(pointer);//set prev free to itself to indicate nothing
 }
 
 inline UnallocatedBlock_t *PopBucket(int chunks) {
-    int bucketNum = ceil_log2((unsigned long long int) chunks) + 1; // +1 because you take the guaranteed bucket
+    int bucketNum = ceil_log2((unsigned long long int) chunks);
+    if (bucketNum < 0 || bucketNum >= 11)
+        return NULL;
+    if(chunks > LowerLimit[bucketNum])
+        bucketNum++;// +1 because you take the guaranteed bucket
     if (bucketNum < 0 || bucketNum >= 11)
         return NULL;
     while (BucketArray[bucketNum] == NULL) {
@@ -117,22 +138,26 @@ size is the number of bytes that the user wants to allocate
 
 **********/
 void *half_alloc(int size) {
+    print();
     size += 4; // 4 bytes are required for header
     int numChunk = (size + 31) / 32; // this divide size by 32 and ceil it REWRITE IN BITWISE
     UnallocatedBlock_t *freeBlock = PopBucket(numChunk);
     if (freeBlock == NULL)
         return NULL;
-    if (freeBlock->Header.Size == numChunk) {
+    if (freeBlock->Header.Size == numChunk || (freeBlock->Header.Size+1024) == numChunk) {
         freeBlock->Header.Allocated = 1;
-        return GetAbsoluteAddress(GetRelativeAddress(freeBlock) + 4);
+        return (AllocatedBlock_t*)(((void*)freeBlock)+4);
     }
     AllocatedBlock_t* allocBlock = splitBlock(freeBlock, numChunk);
-    return allocBlock;
+    return (AllocatedBlock_t*)(((void*)allocBlock)+4);
 }
 
 
 void inline RemoveBlockFromBucket(UnallocatedBlock_t *pointer) {
-    int bucketNum = ceil_log2(pointer->Header.Size);
+    unsigned int size = pointer->Header.Size;
+    if (size == 0)
+        size = 1024;
+    int bucketNum = ceil_log2(size);
     unsigned int CurrentRelative = GetRelativeAddress(pointer);
     //assign prevfree's next free pointer
     if (pointer->PrevFree == CurrentRelative) {// popping the first one on the list. there is no prev free
@@ -143,8 +168,7 @@ void inline RemoveBlockFromBucket(UnallocatedBlock_t *pointer) {
             BucketArray[bucketNum]->PrevFree = pointer->NextFree; //point it to itself so to indicate there is nothing before it
         }
     }
-    else if (pointer->NextFree ==
-             CurrentRelative) {//popping the last one on the list and there is more than on in the list
+    else if (pointer->NextFree == CurrentRelative) {//popping the last one on the list and there is more than on in the list
         ((UnallocatedBlock_t *) GetAbsoluteAddress(pointer->PrevFree))->NextFree = pointer->PrevFree;
     }
     else {
@@ -154,20 +178,25 @@ void inline RemoveBlockFromBucket(UnallocatedBlock_t *pointer) {
 }
 
 void half_free(void *pointer) {
+    print();
     UnallocatedBlock_t *CurrentBlockHeader = (UnallocatedBlock_t *) (pointer - 4);
-    int size = CurrentBlockHeader->Header.Size;
+    if(!CurrentBlockHeader->Header.Allocated)
+        return;
+    unsigned int size = CurrentBlockHeader->Header.Size;
+    if (size == 0)
+        size = 1024;
     UnallocatedBlock_t *FirstCoalesceBlock = CurrentBlockHeader;
     UnallocatedBlock_t *LastCoalesceBlock = CurrentBlockHeader;
     UnallocatedBlock_t *PrevBlock = (UnallocatedBlock_t *) GetAbsoluteAddress(CurrentBlockHeader->Header.PrevBlock);
     UnallocatedBlock_t *NextBlock = (UnallocatedBlock_t *) GetAbsoluteAddress(CurrentBlockHeader->Header.NextBlock);
     UnallocatedBlock_t *NextBlockAfterCoalesce = NULL;
 
-    if (!PrevBlock->Header.Allocated) {
+    if (!PrevBlock->Header.Allocated && PrevBlock != CurrentBlockHeader) {
         FirstCoalesceBlock = PrevBlock;
         size += PrevBlock->Header.Size;
         RemoveBlockFromBucket(PrevBlock);
     }
-    if (!NextBlock->Header.Allocated) {
+    if (!NextBlock->Header.Allocated && NextBlock != CurrentBlockHeader) {
         LastCoalesceBlock = NextBlock;
         size += NextBlock->Header.Size;
         RemoveBlockFromBucket(NextBlock);
@@ -186,4 +215,5 @@ void half_free(void *pointer) {
         NextBlockAfterCoalesce->Header.PrevBlock = GetRelativeAddress(FirstCoalesceBlock);
     }
     PushToBucket(FirstCoalesceBlock);
+    print();
 }

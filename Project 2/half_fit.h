@@ -37,7 +37,7 @@ unsigned int inline GetRelativeAddress(void* pointer);
 void inline * GetAbsoluteAddress(unsigned int relativeAddress);
 void inline PushToBucket(UnallocatedBlock_t* pointer);
 inline AllocatedBlock_t * splitBlock(UnallocatedBlock_t *freeBlock, int numChunk);
-
+void print(void);
 
 #endif
 

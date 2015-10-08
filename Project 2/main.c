@@ -188,9 +188,11 @@ bool test_alc_free_max( void ) {
 	void* ptr;
 
 	half_init();
+	print();
 	blk_sz = find_max_block();
+	print();
 	ptr = half_alloc( blk_sz );
-
+    print();
 	if ( ptr == NULL ) {
 		rslt = false;
 	}
@@ -490,8 +492,6 @@ bool test_max_alc_1_byte( void ) {
 	// Allocate 1 bytes until no half_aloc returns NULL
 
 	while ( half_alloc( 1 ) != NULL ) {
-        if(c >= 1020)
-            printf("lol\n");
 		c++;
 	}
 
@@ -501,7 +501,7 @@ bool test_max_alc_1_byte( void ) {
 
 	if ( c == 0 || !(max_sz >= smlst_blk_sz * c  || smlst_blk_sz * c >= lrgst_blk_sz) ) {
 		#ifdef DO_PRINT
-			printf( "32 * %d = %d is not equal to the maximum allocable block which is %d\n", c, c*32 , max_sz );
+			printf( "32 * %d = %d is not equal to the maximum allocable blobtesck which is %d\n", c, c*32 , max_sz );
 		#endif
 
 		rslt = false;
