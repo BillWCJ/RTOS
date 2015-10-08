@@ -86,6 +86,7 @@ void half_init(void) {
     for (; i < 11; i++) {
         BucketArray[i] = NULL;
     }
+    BucketArray[10] = p_start;
 }
 
 
