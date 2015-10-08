@@ -40,9 +40,9 @@ unsigned int inline GetRelativeAddress(void *pointer) {
 }
 
 
-void inline *GetAbsoluteAddress(unsigned int relativeAddress) {
+inline void *GetAbsoluteAddress(unsigned int relativeAddress) {
     int AbsoluteAddress = (int) ((relativeAddress * 32) + p_start);
-    return (void *) AbsoluteAddress;
+    return AbsoluteAddress;
 }
 
 //this function assume the allocated header is set correctly
@@ -178,7 +178,7 @@ void half_free(void *pointer) {
 
     FirstCoalesceBlock->Header.NextBlock = LastCoalesceBlock->Header.NextBlock;
     if (LastCoalesceBlock->Header.NextBlock == GetRelativeAddress(LastCoalesceBlock)) {//there is no nextblock
-        FirstCoalesceBlock->Header.NextBlock = GetRelativeAddress(FirstCoalesceBlock)
+        FirstCoalesceBlock->Header.NextBlock = GetRelativeAddress(FirstCoalesceBlock);
     }
     else {
         NextBlockAfterCoalesce = GetAbsoluteAddress(LastCoalesceBlock->Header.NextBlock);
