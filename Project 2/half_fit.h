@@ -13,13 +13,14 @@ typedef struct AllocatedBlock {
     unsigned int NextBlock  : 10;
     unsigned int Size       : 10;
     unsigned int Allocated  : 1;
+    unsigned int LastBlock : 1;
 } AllocatedBlock_t;
 //Method to get and set all the properties 8X
 
 typedef struct UnallocatedBlock {
     AllocatedBlock_t Header;
-    unsigned int PrevFree : 10;
-    unsigned int NextFree : 10;
+    struct UnallocatedBlock* PrevFree;
+    struct UnallocatedBlock* NextFree;
 } UnallocatedBlock_t;
 
 

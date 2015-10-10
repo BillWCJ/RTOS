@@ -13,7 +13,7 @@
 #define RNDM_TESTS	100
 
 //DO_PRINT allows or prevents the printf statements from being called. The elapsed time printf is the only statement that is run.
-#define DO_PRINT
+//#define DO_PRINT
 
 /**-----------------------------------------------------------------Timer part--------------------------------------------------------*/
 // How many ticks are passed
@@ -83,6 +83,7 @@ size_t find_max_block( void ) {
 
 	for ( i = lrgst_blk_sz; i > 0; --i ) {
 		p = half_alloc( i );
+
 		if ( p != NULL ) {
 			half_free( p );
 			return i;
@@ -188,11 +189,9 @@ bool test_alc_free_max( void ) {
 	void* ptr;
 
 	half_init();
-	print();
 	blk_sz = find_max_block();
-	print();
 	ptr = half_alloc( blk_sz );
-    print();
+
 	if ( ptr == NULL ) {
 		rslt = false;
 	}
@@ -501,7 +500,7 @@ bool test_max_alc_1_byte( void ) {
 
 	if ( c == 0 || !(max_sz >= smlst_blk_sz * c  || smlst_blk_sz * c >= lrgst_blk_sz) ) {
 		#ifdef DO_PRINT
-			printf( "32 * %d = %d is not equal to the maximum allocable blobtesck which is %d\n", c, c*32 , max_sz );
+			printf( "32 * %d = %d is not equal to the maximum allocable block which is %d\n", c, c*32 , max_sz );
 		#endif
 
 		rslt = false;
@@ -517,10 +516,11 @@ bool test_max_alc_rand_byte( void ) {
 
 
 int main( void ) {
-		printf( "test_max_alc:                   %i\n",                   test_max_alc() );
-		printf( "test_alc_free_max:              %i\n",              test_alc_free_max() );
-		printf( "test_static_alc_free:           %i\n",           test_static_alc_free() );
-		printf( "test_static_alc_free_violation: %i\n", test_static_alc_free_violation() );
-		printf( "test_rndm_alc_free:             %i\n",             test_rndm_alc_free() );
-		printf( "test_max_alc_1_byte:            %i\n",            test_max_alc_1_byte() );
+		printf( "max_alc: %i\n",                   test_max_alc() );
+		printf( "alc_free_max: %i\n",              test_alc_free_max() );
+		printf( "static_alc_free: %i\n",           test_static_alc_free() );
+		printf( "static_alc_free_violation: %i\n", test_static_alc_free_violation() );
+		printf( "rndm_alc_free: %i\n",             test_rndm_alc_free() );
+		printf( "max_alc_1_byte: %i\n",            test_max_alc_1_byte() );
+
 }
