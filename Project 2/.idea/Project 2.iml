@@ -5,9 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/half_fit.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/half_fit.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/half_fit_test.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/system_LPC17xx.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/type.h" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
