@@ -269,9 +269,10 @@ bool test_static_alc_free( void ) {
 	half_free( ptr_2 );
 	half_free( ptr_5 );
 
+ 	//print();
 	// Check wether all allocated memory blocks are freed.
 	ptr_1 = half_alloc( max_sz );
-
+	
 	if ( ptr_1 == NULL ) {
 		rslt = false;
 
@@ -379,7 +380,7 @@ size_t get_random_block_size( void ) {
 
 bool test_rndm_alc_free( void ) {
 	bool rslt = true;
-	size_t line = 0, max_sz, blks_sz, alc_rec, tbf, blk_sz;
+	size_t max_sz = 0, blks_sz, alc_rec, tbf, blk_sz; //line = 0
 	int i;
 	block_t blks[RNDM_TESTS << 1];
 	block_t blk;
@@ -539,9 +540,17 @@ int main( void ) {
 		printf( "static_alc_free_violation: %i\n", test_static_alc_free_violation() );
 		printf( "rndm_alc_free: %i\n",             test_rndm_alc_free() );
 		printf( "max_alc_1_byte: %i\n",            test_max_alc_1_byte() );
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
+// 	  printf( "%i%i%i%i%i%i\n",test_max_alc(), test_alc_free_max(), test_static_alc_free(),test_static_alc_free_violation(),test_rndm_alc_free(),test_max_alc_1_byte());
 	} TimerStop();
 	
-	printf( "The elappsed time:              %d ms\n", current_elapsed_time() );
+	printf( "The elappsed time:              %d ms\n", current_elapsed_time());
 	
 	while( 1 ) {
 		// Infinite loop

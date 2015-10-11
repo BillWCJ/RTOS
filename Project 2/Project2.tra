@@ -1,0 +1,26 @@
+*** Creating Trace Output File 'Project2.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup_lpc17xx.o"'
+### List of Objects: adding '"system_lpc17xx.o"'
+### List of Objects: adding '"glcd_scroll.o"'
+### List of Objects: adding '"glcd_spi_lpc1700.o"'
+### List of Objects: adding '"retarget.o"'
+### List of Objects: adding '"half_fit.o"'
+### List of Objects: adding '"half_fit_test_lcd.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "startup_lpc17xx.o" "system_lpc17xx.o" "glcd_scroll.o" "glcd_spi_lpc1700.o" "retarget.o" "half_fit.o" "half_fit_test_lcd.o" 
+--library_type=microlib --strict --scatter "Project2.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\Project2.map" -o Project2.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'Project2.axf'
+### ADS-LD Command File: 'Project2.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'Project2.lnp', Handle=0x0000032C
+### Writing '.lnp' file
+### ADS-LD Command file 'Project2.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

@@ -1,8 +1,10 @@
 #ifndef HALF_FIT_H_
 #define HALF_FIT_H_
 
-#define ARR_SZ 32768
+//#define ARR_SZ 32768 //for debuging on the computer 
 #define MAX_SIZE 32768
+//The base address. On keil this would be 0x10000000, but on our computer we have to use a dynamic one
+#define p_start 0x10000000
 /*
  * Author names:
  *   1.  uWaterloo User ID:  w52jiang@uwaterloo.ca
@@ -32,16 +34,5 @@ void *half_alloc(int);
 // or void *half_alloc( unsigned int );
 void half_free(void *);
 
-//other functions
-//void inline RemoveBlockFromBucket(UnallocatedBlock_t* pointer);
-//int inline ceil_log2(unsigned long long x);
-//unsigned int inline GetRelativeAddress(void* pointer);
-//void inline * GetAbsoluteAddress(unsigned int relativeAddress);
-//void inline PushToBucket(UnallocatedBlock_t* pointer);
-//inline AllocatedBlock_t * splitBlock(UnallocatedBlock_t *freeBlock, int numChunk);
-//void print(void);
-
 #endif
 
-
-// use the S16 and mask to read from it for the array
