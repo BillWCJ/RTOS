@@ -3,8 +3,8 @@
 
 /*
  * Author names:
- *   1.  uWaterloo User ID:  xxxxxxxx@uwaterloo.ca
- *   2.  uWaterloo User ID:  xxxxxxxx@uwaterloo.ca
+ *   1.  uWaterloo User ID:  w52jiang@uwaterloo.ca
+ *   2.  uWaterloo User ID:  pshering@uwaterloo.ca
  */
 
 #include "array_tools.h"
