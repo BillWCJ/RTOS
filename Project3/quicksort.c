@@ -67,11 +67,50 @@ array_type median_of_three(array_interval_t interval){
 }
 
 void insertion_sort( array_interval_t interval ) {
-  // Your implementation here
+    size_t j = 0;
+    array_type temp= NULL;
+
+    for (int i = interval.start; i <= interval.end; i++){
+		j = i;
+		while (j > interval.start && arr[j] < arr[j-1]){
+            temp = arr[j];
+            arr[j] = arr[j-1];
+            arr[j-1] = temp;
+            j--;
+        }
+    }
+}
+
+void quickSort(array_type arr[], size_t left, size_t right) {
+      size_t i = left, j = right;
+      array_type tmp;
+      array_type pivot = arr[(left + right) / 2];
+
+      /* partition */
+      while (i <= j) {
+            while (arr[i] < pivot)
+                  i++;
+            while (arr[j] > pivot)
+                  j--;
+            if (i <= j) {
+                  tmp = arr[i];
+                  arr[i] = arr[j];
+                  arr[j] = tmp;
+                  i++;
+                  j--;
+            }
+      };
+
+      /* recursion */
+      if (left < j)
+            quickSort(arr, left, j);
+      if (i < right)
+            quickSort(arr, i, right);
 }
 
 __task void quick_sort_task( void* void_ptr){
-  // Your implementation here
+    qsort_task_parameters_t *task_param = (qsort_task_parameters_t*)void_ptr;
+    quickSort(task_param.interval.array.array, task_param.interval.start, task_param.interval.end);
 }
 
 void quicksort( array_t array ) {
