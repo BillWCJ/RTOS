@@ -45,7 +45,7 @@ void quickSort(int arr[], int a, int b) {
 
     int key = arr[a];
     int i = a + 1, j = b;
-    while (i < j) {
+    while (i < j)  {
         while (i < j && arr[j] >= key)
             --j;
         while (i < j && arr[i] <= key)
@@ -61,6 +61,7 @@ void quickSort(int arr[], int a, int b) {
         quickSort(arr, a + 1, b);
     }
 }
+
 // bool is_sorted_array( int array, int length ) {
 // 	int i;
 //

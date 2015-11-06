@@ -8,6 +8,7 @@
 #undef PRINT_ARRAY
 
 // Change 'undef' to 'define' when you have implemented quicksort_sem
+//#define TEST_SEMAPHORE_IMPLEMENTATION
 #undef TEST_SEMAPHORE_IMPLEMENTATION
 
 /**
@@ -49,7 +50,7 @@ __task void base_task( void ) {
 			printf("The array is sucessfully sorted in %.1f us.\n", time);
 		//else
 		//	printf("The array is not sorted!\n");
-
+		
 		#ifdef PRINT_ARRAY
 			print_array( &array );
 		#endif

@@ -96,11 +96,89 @@ array_t generate_array( void ) {
 	return result;
 }
 
+// array_t generate_array( void ) {
+// 	array_t result;
+// 	size_t i;
+// 	int n;
+
+// 	printf("Enter the bag size or '0' for a large memory block: ");
+
+// 	scanf("%d", &n);
+
+// // 	if ( n <= 0 ) {
+// // 		return generate_random_array();
+// // 	}
+
+// 	result.length = 20;
+
+// 	printf("Enter each %d numbers, and hit Enter then: ", result.length);
+
+// 	result.array = (unsigned char *) (0x2007C000);
+
+// 	result.array[0] = 3;
+// 	result.array[1] = 15;
+// 	result.array[2] = 21;
+// 	result.array[3] = 13;
+// 	result.array[4] = 4;
+// 	result.array[5] = 5;
+// 	result.array[6] = 1;
+// 	result.array[7] = 0;
+// 	result.array[8] = 10;
+// 	result.array[9] = 12;
+// 	result.array[10] = 11;
+// 	result.array[11] = 23;
+// 	result.array[12] = 27;
+// 	result.array[13] = 9;
+// 	result.array[14] = 26;
+// 	result.array[15] = 17;
+// 	result.array[16] = 7;
+// 	result.array[17] = 15;
+// 	result.array[18] = 18;
+// 	result.array[19] = 21;
+
+// 	printf("\n");
+
+// 	return result;
+// }
+
+// array_t generate_array( void ) {
+// 	array_t result;
+// 	size_t i;
+// 	int n;
+
+// 	printf("Enter the bag size or '0' for a large memory block: ");
+
+// 	scanf("%d", &n);
+
+// 	result.length = n;
+// 	if(result.length > 8192 || result.length <=0)
+// 		result.length = 8192;
+
+// 	printf("Enter seed value");
+
+// 	scanf("%d", &n);
+// 	srand(n);
+// 		
+// 	result.array = (unsigned char *) (0x2007C000);
+
+// 	for ( i = 0; i < result.length; i++ ) {
+// 		 	result.array[i] = rand();
+// 	}
+// 	printf("\n");
+
+// 	printf("Done generating\n");
+// 	return result;
+// }
+
 void print_array( array_t* a ) {
 	size_t i;
 
+// 	for ( i = 0; i < a->length; ++i ) {
+// 		printf( " [%d]=%d", i, a->array[i] );
+// 	}
+// 	
 	for ( i = 0; i < a->length; ++i ) {
-		printf( " [%d]=%d", i, a->array[i] );
+		printf( "%d ", a->array[i] );
 	}
 	
 	printf( "\n" );
