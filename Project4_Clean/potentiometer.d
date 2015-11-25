@@ -1,0 +1,11 @@
+potentiometer.o: Potentiometer.c
+potentiometer.o: C:\Software\Keil\ARM\Inc\NXP\LPC17xx\LPC17xx.h
+potentiometer.o: C:\Software\Keil\ARM\CMSIS\Include\core_cm3.h
+potentiometer.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdint.h
+potentiometer.o: C:\Software\Keil\ARM\CMSIS\Include\core_cmInstr.h
+potentiometer.o: C:\Software\Keil\ARM\CMSIS\Include\core_cmFunc.h
+potentiometer.o: C:\Software\Keil\ARM\Inc\NXP\LPC17xx\system_LPC17xx.h
+potentiometer.o: C:\Software\Keil\ARM\RV31\INC\RTL.h
+potentiometer.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdio.h
+potentiometer.o: Potentiometer.h
+potentiometer.o: led.h
