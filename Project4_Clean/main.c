@@ -35,6 +35,7 @@ OS_MUT Ball;
 OS_SEM Create;
 OS_SEM Draw;
 OS_SEM Rand;
+OS_SEM LEDCheck;
 
 unsigned short clear_bitmap[] = { BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
 																	BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
@@ -59,6 +60,22 @@ unsigned short cross_bitmap[] = { BG, BG, BG, PU, PU, PU, PU, BG, BG, BG,
 																	BG, BG, BG, PU, PU, PU, PU, BG, BG, BG};		
 const int size_x = 10, size_y = 10;
 
+volatile typedef struct {
+	volatile double x;
+	volatile double y;
+	volatile double speed_x;
+	volatile double speed_y;
+	volatile int size_x;
+	volatile int size_y;
+	volatile int color;
+	volatile int radius;
+	volatile bool active;
+	volatile bool userControl; // decide later 
+} bounceBall;
+
+volatile bounceBall* ballParam[8];
+	
+
 // Stop blinking
 unsigned char stopBlink = 0;
 
@@ -66,27 +83,35 @@ unsigned char stopBlink = 0;
 //     http:// www.nxp.com/documents/user_manual/UM10360.pdf
 
 // Functions
+void position(bounceBall* ballParam){
+	os_sem_wait(&Rand, 0xFFFF);
+	ballParam->x = rand()%(MAXX-size_x);
+	ballParam->y = rand()%(MAXY-size_y);
+	ballParam->speed_x = (rand()%7) -3; // can only be from 0-6 then shifted to -3 to 3
+	ballParam->speed_y = (rand()%7) -3;
+	os_sem_send(&Rand);			
+}
+
 void button_pressed_callback(void){
 	//change what you want the function to do when the button is pressed
-	//stopBlink = stopBlink ^ 1 ;
 	create = true;
 }
 
-void check_edge(int x, int y, int old_x, int old_y, int size_x, int size_y, int* speed_x, int* speed_y){
-	if(y < 0 || y > (MAXY - size_y)){
-		y = old_y;
-		*speed_y = -(*speed_y);
+void check_edge(bounceBall* ballParam, double old_x, double old_y){
+	if((ballParam->y < 0) || (ballParam->y > (MAXY - size_y))){
+		ballParam->y = old_y;
+		ballParam->speed_y = -(ballParam->speed_y);
 	}
-	if(x < 0 || x > (MAXX - size_x)){
-		x = old_x;
-		*speed_x = -(*speed_x);
+	if((ballParam->x < 0) || (ballParam->x > (MAXX - size_x))){
+		ballParam->x = old_x;
+		ballParam->speed_x = -(ballParam->speed_x);
 	}
 }
 
-void draw_ball(int x, int y, int old_x, int old_y, int size_x, int size_y, unsigned char*clear_bitmap, unsigned char*cross_bitmap){
+void draw_ball(bounceBall* ballParam, int old_x, int old_y, unsigned char*clear_bitmap, unsigned char*cross_bitmap){
 	os_sem_wait(&Draw, 0xFFFF);
 	GLCD_Bitmap (old_x, old_y, size_x, size_y, (unsigned char*)clear_bitmap);
-	GLCD_Bitmap (x, y, size_x, size_y, (unsigned char*)cross_bitmap);
+	GLCD_Bitmap (ballParam->x, ballParam->y, size_x, size_y, (unsigned char*)cross_bitmap);
 	os_sem_send(&Draw);
 }
 
@@ -149,82 +174,89 @@ void draw_ball2(int x, int y, int old_x, int old_y, int r, unsigned short colour
 	DrawCircle(x, y, r);
 	os_sem_send(&Draw);
 }
+ 
+// ################### TASKS ###################
 
-// Tasks
+__task void ball_task(void* ballParam){
+	double old_x = 0, old_y = 0;
+	bounceBall* ball = (bounceBall*)ballParam;
+	ball->x = 0;
+	ball->y = 0;
+	ball->speed_x = 0;
+	ball->speed_y = 0;
+	
+	
 
-__task void ball_task(void* arg){
-	int x = 0, y = 0, old_x = 0, old_y = 0, speed_x = 0, speed_y = 0;
-						
-	os_sem_wait(&Rand, 0xFFFF);
-	x = rand()%(MAXX-size_x);
-	y = rand()%(MAXY-size_y);
-	speed_x = (rand()%7) -3; // can only be from 0-6 then shifted to -3 to 3
-	speed_y = (rand()%7) -3;
-	os_sem_send(&Rand);																		
+	position(ball);
+															
 							
 	while(1){
-		x += ((double)adc/MAX_ADC)*speed_x;
-		y += ((double)adc/MAX_ADC)*speed_y;
-		check_edge(x, y, old_x, old_y, size_x, size_y, &speed_x, &speed_y);
+		ball->x += ((double)adc/MAX_ADC)*ball->speed_x;
+		ball->y += ((double)adc/MAX_ADC)*ball->speed_y;
+		check_edge(ball, old_x, old_y);
 		
-		if(save_draw && (x != old_x || y != old_y)){
-			draw_ball(x, y, old_x, old_y, size_x, size_y, (unsigned char*)clear_bitmap, (unsigned char*)cross_bitmap);
+		if(save_draw && (ball->x != old_x || ball->y != old_y)){
+			draw_ball(ball, old_x, old_y, (unsigned char*)clear_bitmap, (unsigned char*)cross_bitmap);
 			
 			//draw_ball2(x+(size_x/2), y+(size_y/2), old_x+(size_x/2), old_y+(size_y/2), ((size_x+size_y)/4), FG);
 			
-			old_x = x;
-			old_y = y;	
+			old_x = ball->x;
+			old_y = ball->y;	
 		}
 	}
 	os_tsk_delete_self();
 }
 
-__task void user_task(void* arg){
-	int x = 0, y = 0, old_x = 0, old_y = 0, speed_x = 0, speed_y = 0;
+__task void user_task(void* ballParam){
+	double old_x = 0, old_y = 0;
 	uint32_t val = KBD_UP;
+
+	bounceBall* ball = (bounceBall*)ballParam;
+	ball->x = 0;
+	ball->y = 0;
+	ball->speed_x = 0;
+	ball->speed_y = 0;
+	
+	
 																														
-	os_sem_wait(&Rand, 0xFFFF);
-	x = rand()%(MAXX-size_x);
-	y = rand()%(MAXY-size_y);
-	speed_x = (rand()%7) -3;
-	speed_y = (rand()%7) -3;
-	os_sem_send(&Rand);																		
+	position(ball);										
 																			
 	while(1){
 		val = get_button();
 		
-		x += ((double)adc/MAX_ADC)*speed_x;
-		y += ((double)adc/MAX_ADC)*speed_y;
-		check_edge(x, y, old_x, old_y, size_x, size_y, &speed_x, &speed_y);
+		ball->x += ((double)adc/MAX_ADC)*ball->speed_x;
+		ball->y += ((double)adc/MAX_ADC)*ball->speed_y;
+		check_edge(ball, old_x, old_y);
 		
-		if(val == KBD_UP && y < (MAXY - size_y))
-				speed_y += 1;
-		else if(val == KBD_RIGHT && x < (MAXX - size_x))
-				speed_x += 1;
-		else if(val == KBD_DOWN && y > 0)
-				speed_y += -1;
-		else if(val == KBD_LEFT && x > 0)
-				speed_x += -1;
+		//DECIDE LATER accel?
+		if(val == KBD_UP && ball->y < (MAXY - size_y))
+				ball->speed_y += 1;
+		else if(val == KBD_RIGHT && ball->x < (MAXX - size_x))
+				ball->speed_x += 1;
+		else if(val == KBD_DOWN && ball->y > 0)
+				ball->speed_y += -1;
+		else if(val == KBD_LEFT && ball->x > 0)
+				ball->speed_x += -1;
 		
-		if(speed_x > 3)
-			speed_x = 3;
-		else if(speed_x < -3)
-			speed_x = -3;
+		if(ball->speed_x > 3)
+			ball->speed_x = 3;
+		else if(ball->speed_x < -3)
+			ball->speed_x = -3;
 		
-		if(speed_y > 3)
-			speed_y = 3;
-		else if(speed_y < -3)
-			speed_y = -3;
+		if(ball->speed_y > 3)
+			ball->speed_y = 3;
+		else if(ball->speed_y < -3)
+			ball->speed_y = -3;
 			
-		if(save_draw && (x != old_x || y != old_y)){
-			draw_ball(x, y, old_x, old_y, size_x, size_y, (unsigned char*)clear_bitmap, (unsigned char*)cross_bitmap);
+		if(save_draw && (ball->x != old_x || ball->y != old_y)){
+			draw_ball(ball, old_x, old_y, (unsigned char*)clear_bitmap, (unsigned char*)cross_bitmap);
 			
 			//draw_ball2(x+(size_x/2), y+(size_y/2), old_x+(size_x/2), old_y+(size_y/2), ((size_x+size_y)/4), FG);
 			
 			//draw_ball2(x+(size_x/2), y+(size_y/2), old_x+(size_x/2), old_y+(size_y/2), 10, FG);
 			
-			old_x = x;
-			old_y = y;
+			old_x = ball->x;
+			old_y = ball->y;
 		}
 	}
 	os_tsk_delete_self();
@@ -233,27 +265,45 @@ __task void user_task(void* arg){
 // This dummy thread constantly asks to read the poti. when the data becomes ready
 // ADC_Done will be 1;
 __task void readPoti_task(void){
-	
 	while( 1 ){
 		ADCConvert();
-		//Now wait for the other threads.
-		os_dly_wait( 100 );
+	}
+}
+
+__task void ballCountLED(void){
+	int i;
+	for(i = 0; i < MAX_BALLS-1; i++){
+		if (ballParam[i]->active)
+			turnOnLED(i);
+		else
+			turnOffLED(i);
 	}
 }
 
 __task void init_task( void ) {
+	int i;
 	// Increase the priority to intilize the task first, then allow them to start
 	os_tsk_prio_self ( 2 );
+	
+	for( i = 0; i < 7; i++){
+		ballParam[i] = (bounceBall*)malloc(sizeof(bounceBall));
+		ballParam[i]->active = false;
+	}
+	
+	//initialize semaphores
 	os_sem_init(&Draw, 1);
 	os_sem_init(&Rand, 1);
 	os_sem_init(&Create, 1);
+	os_sem_init(&LEDCheck, 1);
 	
-	// Launche a thread to constantly read the poti
-	os_tsk_create ( readPoti_task, 1);
+	// Launch a multi thread checking system
+	os_tsk_create (readPoti_task, 1);
+	os_tsk_create (ballCountLED, 1);
 	
-	balls = 1;
-	turnOnLED(balls-1);
-	os_tsk_create_ex(user_task, 1, NULL);
+	balls ++;
+	ballParam[0]->active = true;
+// 	turnOnLED(balls-1);
+	os_tsk_create_ex(user_task, 1, (void*)ballParam[0]);
 	os_tsk_prio_self ( 1 );
 	
 	while(1){
@@ -261,20 +311,19 @@ __task void init_task( void ) {
 		if(create){
 			if(balls < 8){
 				os_sem_wait(&Draw, 0xFFFF);
-				os_tsk_create_ex (ball_task, 1, NULL);
 				create = false;
-				os_sem_send(&Draw);
+				ballParam[balls+1]->active = true;
+				os_tsk_create_ex (ball_task, 1, (void*)ballParam[balls+1]);
 				balls++;
-				turnOnLED(balls-1);
+				os_sem_send(&Draw);
 			}
 			else{	
 				os_sem_wait(&Draw, 0xFFFF);
 				create = false;
 				os_sem_send(&Draw);
 			}
-			os_dly_wait(100);
 		}
-		
+		// move this to another task
 		pot = ADCValue();
 		if(pot != adc)
 			adc = pot;
@@ -282,16 +331,18 @@ __task void init_task( void ) {
 }
 
 int main( void ) {
-  //initalization
+  // system initalization
 	SystemInit();
 	SystemCoreClockUpdate();
+	// GLCD initalization
 	GLCD_Init();
+	GLCD_Clear(BG);
+	// peripherals initialization
 	LEDInit();
 	INT0Init(button_pressed_callback);
 	ADCInit();
 	KBD_Init();
-	GLCD_Clear(BG);
-
+	
 	os_sys_init(init_task);
 		while(1){
 	}

@@ -13,7 +13,7 @@ void LEDInit( void ) {
 	// to Power CONtrol for Peripherals.
 	//  - Power/clock control bit for IOCON, GPIO, and GPIO interrupts (Section 4.8.9)
 	//    This can also be enabled from `system_LPC17xx.c'
-	LPC_SC->PCONP     |= (1 << 15);            
+	LPC_SC->PCONP |= (1 << 15);            
 
 	// The ports connected to p1.28, p1.29, and p1.31 are in mode 00 which
 	// is functioning as GPIO (Section 8.5.5)
