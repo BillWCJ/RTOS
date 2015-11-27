@@ -24,7 +24,7 @@
 //   <i> Define max. number of tasks that will run at the same time.
 //   <i> Default: 6
 #ifndef OS_TASKCNT
- #define OS_TASKCNT     41
+ #define OS_TASKCNT     15
 #endif
 
 //   <o>Number of tasks with user-provided stack <0-250>
@@ -39,7 +39,7 @@
 //   <i> Set the stack size for tasks which is assigned by the system.
 //   <i> Default: 200
 #ifndef OS_STKSIZE
- #define OS_STKSIZE     112
+ #define OS_STKSIZE     225
 #endif
 
 // <q>Check for the stack overflow
@@ -79,7 +79,7 @@
 //   <i> Set the timer tick value for selected timer.
 //   <i> Default: 10000  (10ms)
 #ifndef OS_TICK
- #define OS_TICK        10000
+ #define OS_TICK        10
 #endif
 
 // </h>

@@ -9,8 +9,8 @@ main.o: C:\Software\Keil\ARM\RV31\INC\RTL.h
 main.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdio.h
 main.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdlib.h
 main.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdbool.h
-main.o: GLCD_Scroll.h
 main.o: GLCD.h
+main.o: main.h
 main.o: LED.h
 main.o: KBD.h
 main.o: INT0.h

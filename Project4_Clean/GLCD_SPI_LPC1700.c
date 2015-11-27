@@ -926,3 +926,20 @@ void GLCD_WrReg (unsigned char reg, unsigned short val) {
   wr_reg (reg, val);
 }
 /******************************************************************************/
+
+void DrawBall (unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned char *bitmap, unsigned char BG, unsigned char color) {
+  int i, j;
+  unsigned short *bitmap_ptr = (unsigned short *)bitmap;
+	//unsigned char bg = BG, co = bitmap_ptr[0];
+  GLCD_SetWindow (x, y, w, h);
+
+  wr_cmd(0x22);
+  wr_dat_start();
+  for (i = (h-1)*w; i > -1; i -= w) {
+    for (j = 0; j < w; j++) {
+			if(bitmap_ptr[i+j] != BG)
+				wr_dat_only (color);
+    }
+  }
+  wr_dat_stop();
+}

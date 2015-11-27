@@ -56,4 +56,5 @@ extern void GLCD_ScrollVertical (unsigned int dy);
 extern void GLCD_WrCmd          (unsigned char cmd);
 extern void GLCD_WrReg          (unsigned char reg, unsigned short val); 
 
+extern void DrawBall (unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned char *bitmap, unsigned char BG, unsigned char color);
 #endif /* _GLCD_H */
