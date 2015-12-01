@@ -23,94 +23,21 @@
 #define MAX_ADC 500 // 1200
 
 volatile bool save_draw = false;
-volatile int balls = 0;
+//volatile int balls = 0;
 volatile bool create = true;
 volatile bool end = false;
 
+
+
+OS_SEM freeball;
 OS_SEM Create;
 OS_SEM Draw;
 OS_SEM Rand;
 OS_SEM Collide;
+OS_SEM Dist;
 
-const unsigned short colourList[] = {Black, Navy, DarkGreen, DarkCyan, Maroon, Purple, Olive, LightGrey, DarkGrey, Blue, Green, Cyan, Red, Magenta, Yellow};
+const unsigned int colourList[15] = {Black, Navy, DarkGreen, DarkCyan, Maroon, Purple, Olive, LightGrey, DarkGrey, Blue, Green, Cyan, Red, Magenta, Yellow};
 
-// unsigned short smallBall[] = { BG, BG, BG, PU, PU, PU, PU, BG, BG, BG,
-// 																BG, BG, PU, PU, PU, PU, PU, PU, BG, BG,
-// 																BG, PU, PU, PU, PU, PU, PU, PU, PU, BG,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																BG, PU, PU, PU, PU, PU, PU, PU, PU, BG,
-// 																BG, BG, PU, PU, PU, PU, PU, PU, BG, BG,
-// 																BG, BG, BG, PU, PU, PU, PU, BG, BG, BG};
-
-// unsigned short mediumBall[] = { BG, BG, BG, BG, BG, BG, PU, PU, PU, BG, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG,
-// 																BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG,
-// 																BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG,
-// 																BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG,
-// 																BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG,
-// 																BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG,
-// 																BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, BG, PU, PU, PU, BG, BG, BG, BG, BG, BG };
-
-// 								
-// unsigned short largeBall[] = { BG, BG, BG, BG, BG, BG, BG, BG, PU, PU, PU, PU, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG,
-// 																BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG,
-// 																BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG,
-// 																BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU,
-// 																BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG,
-// 																BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG,
-// 																BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, BG, BG, PU, PU, PU, PU, PU, PU, BG, BG, BG, BG, BG, BG, BG,
-// 																BG, BG, BG, BG, BG, BG, BG, BG, PU, PU, PU, PU, BG, BG, BG, BG, BG, BG, BG, BG };
-
-// unsigned short smallBallclear[] = { BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG};
-
-// unsigned short mediumBallclear[] = { BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
-// 																			BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG };
-
-								
 unsigned short largeBallclear[] = { BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG,
@@ -133,211 +60,153 @@ unsigned short largeBallclear[] = { BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, 
 																		BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG, BG };
 
 volatile typedef struct {
-//  	volatile int size_x ;
-//  	volatile int size_y ;
-	volatile double x;
-	volatile double y;
-	volatile double speed_x;
-	volatile double speed_y;
-
-	volatile char color;
+	volatile double x, y, speed_x, speed_y, old_x, old_y;
+	volatile unsigned short color;
 	volatile int radius;
 	volatile bool active;
 	volatile unsigned short bitmap [400]; //[(2*10)*(2*10)];
 	volatile unsigned char* clearbitmap; //[(2*10)*(2*10)];
+	
+	OS_SEM block;
+	volatile bool running;
 } bounceBall;
 
-volatile bounceBall* ballParam[8];
+volatile bounceBall* ballParam[MAX_BALLS];
 volatile int userBall = 0;
-
-// Stop blinking
-unsigned char stopBlink = 0;
 
 // ####################  FUNCTIONS  ####################  
 
 //assign random starting position and speed
-void position( bounceBall* ballParam ){
+void position( bounceBall* ball ){
 	os_sem_wait(&Rand, 0xFFFF);
-	ballParam->x = rand()%(MAXX-2*ballParam->radius);
-	ballParam->y = rand()%(MAXY-2*ballParam->radius);
-	ballParam->speed_x = (rand()%7) -3; // can only be from 0-6 then shifted to -3 to 3
-	ballParam->speed_y = (rand()%7) -3;
+	ball->x = rand()%(MAXX-2*ball->radius);
+	ball->y = rand()%(MAXY-2*ball->radius);
+	ball->speed_x = 2;//((rand()%3) -1)/2.; // can only be from 0-6 then shifted to -3 to 3
+	ball->speed_y = 2;//((rand()%3) -1)/2.;
 	os_sem_send(&Rand);			
 }
 
-void button_pressed_callback( void ){
-	//change what you want the function to do when the button is pressed
-	create = true;
-}
-
 //check the position of the ball. if off the map re store its old value and change direction of the speed
-void check_edge( bounceBall* ballParam, int old_x, int old_y ){
-	if((ballParam->y < 0) || (ballParam->y > (MAXY - 2*ballParam->radius))){
-		ballParam->y = old_y;
-		ballParam->speed_y = -(ballParam->speed_y);
+void check_edge( bounceBall* ball){//, int old_x, int old_y ){
+	if((ball->y < 0) || (ball->y > (MAXY - 2*ball->radius))){
+		ball->y = ball->old_y;
+		ball->speed_y = -(ball->speed_y);
 	}
-	if((ballParam->x < 0) || (ballParam->x > (MAXX - 2*ballParam->radius))){
-		ballParam->x = old_x;
-		ballParam->speed_x = -(ballParam->speed_x);
+	if((ball->x < 0) || (ball->x > (MAXX - 2*ball->radius))){
+		ball->x = ball->old_x;
+		ball->speed_x = -(ball->speed_x);
 	}
-}
-
-void draw_ball( bounceBall* ballParam, int old_x, int old_y, unsigned char* bitmap, unsigned char* clearbitmap ){
-	os_sem_wait(&Draw, 0xFFFF);
- 	GLCD_Bitmap (old_x, old_y, 2*ballParam->radius, 2*ballParam->radius, (unsigned char*)clearbitmap);
- 	GLCD_Bitmap (ballParam->x, ballParam->y, 2*ballParam->radius, 2*ballParam->radius, (unsigned char*)bitmap);
-	
-	//DrawBall (old_x, old_y, ballParam->size_x, ballParam->size_y, (unsigned char*)clearbitmap, BG, BG);
- 	//DrawBall (ballParam->x, ballParam->y, ballParam->size_x, ballParam->size_y, (unsigned char*)bitmap, BG, ballParam->color);
-//  	ClearCircle (old_x, old_y, ballParam->size_x, ballParam->size_y, (unsigned char*)bitmap, White);
-//  	DrawCircle (ballParam->x, ballParam->y, ballParam->size_x, ballParam->size_y, (unsigned char*)bitmap, BG, ballParam->color);
-	os_sem_send(&Draw);
-}
-
-//clear the old location and draw the ball using "dx*dx + dy*dy <= r*r" (distance equation because the distance to the center should be less than radius
-void draw_ball2( int x, int y, int old_x, int old_y, int r, unsigned short colour ){
-	int i, j;
-	double dx, dy;
-	os_sem_wait(&Draw, 0xFFFF);
-	// clear old circle
-	GLCD_SetTextColor(BG);
-	//DrawCircle(old_x, old_y, r);
-	for (i = old_x-r; i<old_x+r; i++){
-		for (j = old_y-r; j<old_y+r; j++){
-			dx = i-old_x;
-			dy = j-old_y;
-			if((dx*dx + dy*dy) <= r*r)
-				GLCD_PutPixel(i, j);
-		}
-	}
-	
-	//draw circle
-	GLCD_SetTextColor(colour);
-	for (i = x - r; i < x+r; i++){
-		for (j = y - r; j < y+r; j++){
-			dx = i-x;
-			dy = j-y;
-			if((dx*dx + dy*dy) <= r*r)
-				GLCD_PutPixel(i, j);
-		}
-	}
-	//DrawCircle(x, y, r);
-	os_sem_send(&Draw);
-}
-
-
-unsigned short getColour( void ){
-	return (colourList[rand()%15]);
 }
 
 //set random size, colour, inital position, speed and ...
 void setRandom( bounceBall* ball ){
-		int i, j;
-		int x,y;	
-		double dx, dy;
-		int radius;
-		int x0 = ball->x;
-		int y0 = ball->y;
+	int i, j;
+	double dx, dy;
+	int x0 = ball->x;
+	int y0 = ball->y;
+	int r, w, h;
 
-		ball->active = true;
-		ball->radius = (rand()%5+2);
-		position(ball);
-		ball->color = getColour();
-		radius = ball->radius;
-// 		switch(rand()%3){
-// 			case 0:
-// 				ball->bitmap = (unsigned char*)smallBall;
-// 				ball->clearbitmap = (unsigned char*)smallBallclear;
-// // 				ball->size_x = 10;
-// // 				ball->size_y = 10;
-// 				ball->radius = 5;
-// 			break;
-// 			case 1:
-// 				ball->bitmap = (unsigned char*)mediumBall;
-// 				ball->clearbitmap = (unsigned char*)mediumBallclear;
-// // 				ball->size_x = 14;
-// // 				ball->size_y = 14;
-// 				ball->radius = 7;
-// 			break;
-// 			default:
-// 				ball->bitmap = (unsigned char*)largeBall;
-// 				ball->clearbitmap = (unsigned char*)largeBallclear;
-// // 				ball->size_x = 20;
-// // 				ball->size_y = 20;
-// 				ball->radius = 10;
-// 			break;
-// 		}
-	
-// 		for(y=-ball->radius; y<=ball->radius; y++){
-// 			for(x=-ball->radius; x<=ball->radius; x++){
-//         if(x*x+y*y <= ball->radius*ball->radius){
-//            ball->bitmap[ball->radius*2*(x+ball->radius)+(y+ball->radius)]= (unsigned short*)PU;
-// 				}
-// 				else{
-// 						ball->bitmap[ball->radius*2*(x+ball->radius)+(y+ball->radius)]= (unsigned short*)White;
-// 				}
-// 			}
-// 		}	
+	ball->active = true;
+	ball->radius = (rand()%7 + 4);
+	position(ball);
+	ball->color = colourList[rand()%15];
+	r = ball->radius;
+	w = 2*ball->radius;
+	h = 2*ball->radius;
+	for (i = (h-1)*w; i > -1; i -= w) {
+		for (j = 0; j < w; j++) {
+			dx = i/w - r;
+			dy = j - r;
+					if(dx*dx+dy*dy <= r*r)
+						ball->bitmap[i+j] = ball->color;
+					else
+						ball->bitmap[i+j] = BG;
+		}
+	}
+}
 
-// 	// REWRITE THIS DOESNT WORK AS WELL
-// 	for (y=0; y<=2*radius; y++) {
-// 		for (x=0; x<=2*radius; x++) {
-// 			int index = (x * 2*radius) + y;
-// 			if ((y-radius)*(y-radius)+(x-radius)*(x-radius) <= radius*radius) {
-// 				ball->bitmap[index] = ball->color;
-// 			}
-// 			else
-// 			{
-// 				ball->bitmap[index] = White;
-// 			}
-// 		}
-// 	}
-
-		for (i = (2*ball->radius-1)*2*ball->radius; i > -1; i --) {
-			for (j = 0; j < 2*ball->radius; j++) {
-				dx = i-ball->radius;
-				dy = j-ball->radius;
-				if(dx*dx+dy*dy <= ball->radius*ball->radius)
-					ball->bitmap[i+j] = PU;//ball->color;
-				else
-					ball->bitmap[i+j] = BG;
+void checkCollision2( void ) {
+	int i, j, dx, dy, r;
+	//while(1) {
+		//collision detection loop thought all the balls and compare it with each other
+		os_sem_wait(&Collide, 0xFFFF);
+		for (i = 0; i < MAX_BALLS; i++){
+			for(j = 0; j < MAX_BALLS; j++){
+				if(i != j && ballParam[i]->active && ballParam[j]->active){
+					//calculate difference in distance x, y and radial distance between the two task
+					dx = (ballParam[i]->x - ballParam[j]->x);
+					dy = (ballParam[i]->y - ballParam[j]->y);
+					r = (2*ballParam[i]->radius + 2*ballParam[j]->radius)/2;
+					
+					//destory ball
+					if(dx*dx +dy*dy <= r*r){
+						ballParam[i]->active = false;
+						ballParam[j]->active = false;
+						//balls -=2;
+						
+// 						os_sem_send(&freeball);
+// 						os_sem_send(&freeball);
+						
+						if(ballParam[userBall]->active == false){
+							//change user ball to the first active ball
+							userBall = 0;
+							while(!ballParam[userBall]->active && userBall < MAX_BALLS - 1)
+								userBall++; //iterate until an active ball is found
+						}
+// 						os_sem_wait(&Draw, 0xFFFF);
+// 						GLCD_Bitmap ((int)ballParam[i]->x, (int)ballParam[i]->y, 2*ballParam[i]->radius, 2*ballParam[i]->radius, (unsigned char*)ballParam[i]->clearbitmap);
+// 						GLCD_Bitmap ((int)ballParam[i]->old_x, (int)ballParam[i]->old_x, 2*ballParam[i]->radius, 2*ballParam[i]->radius, (unsigned char*)ballParam[i]->clearbitmap);
+// 					
+// 						GLCD_Bitmap ((int)ballParam[j]->x, (int)ballParam[j]->y, 2*ballParam[j]->radius, 2*ballParam[j]->radius, (unsigned char*)ballParam[j]->clearbitmap);
+// 						GLCD_Bitmap ((int)ballParam[j]->old_x, (int)ballParam[j]->old_x, 2*ballParam[j]->radius, 2*ballParam[j]->radius, (unsigned char*)ballParam[j]->clearbitmap);
+// 						os_sem_send(&Draw);
+					}
+				}
 			}
 		}
-	
+		os_sem_send(&Collide);
+	//}
 }
  
 // ################### TASKS ###################
-__task void ball_task( void* ballParam ){
-	int old_x = 0, old_y = 0;
-	bounceBall* ball = (bounceBall*)ballParam;						
-	
+__task void ball_task( void* ballp ){
+	//int old_x = 0, old_y = 0;
+	bounceBall* ball = (bounceBall*)ballp;
+	ball->running = true;
+	os_sem_wait(&ball->block, 0xFFFF);
+//   os_sem_wait(&Draw, 0xFFFF);
+//  	GLCD_Bitmap ((int)ball->x, (int)ball->y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
+//  	GLCD_Bitmap ((int)ball->old_x, (int)ball->old_x, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
+//  	os_sem_send(&Draw);	
+	setRandom(ball);
 	while(ball->active){
 		os_sem_wait(&Draw, 0xFFFF);
-		GLCD_Bitmap (old_x, old_y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
-		os_sem_send(&Draw);
-
+ 		GLCD_Bitmap ((int)ball->x, (int)ball->y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
+		
 		//move the ball
 		ball->x += ((double)ADCValue()/MAX_ADC)*ball->speed_x;
 		ball->y += ((double)ADCValue()/MAX_ADC)*ball->speed_y;
-		check_edge(ball, old_x, old_y);
-		
-		//draw the ball
-// 		draw_ball(ball, old_x, old_y,(unsigned char*) ball->bitmap,(unsigned char*) ball->clearbitmap);
-// 		draw_ball(ball->x+(ball->radius), ball->y+(ball->radius), old_x+(ball->radius), old_y+(ball->radius), ((ball->radius+ball->radius)), ball->color);
-		os_sem_wait(&Draw, 0xFFFF);
-		GLCD_Bitmap (ball->x, ball->y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->bitmap);
-		os_sem_send(&Draw);
+		check_edge(ball);//, old_x, old_y);
 		
 		//assign the new value to the old and continue
-		old_x = ball->x;
-		old_y = ball->y;
+		ball->old_x = ball->x;
+		ball->old_y = ball->y;
+		
+ 		GLCD_Bitmap ((int)ball->x, (int)ball->y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->bitmap);
+ 		os_sem_send(&Draw);
+		
+		checkCollision2();
 	}
+	
 	//clear the ball when it dies
-   os_sem_wait(&Draw, 0xFFFF);
-// 	//ClearCircle (old_x, old_y, ball->size_x, ball->size_y, (unsigned char*)ball->bitmap, BG);
- 	GLCD_Bitmap (old_x, old_y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
+  os_sem_wait(&Draw, 0xFFFF);
+ 	GLCD_Bitmap ((int)ball->x, (int)ball->y, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
+ 	GLCD_Bitmap ((int)ball->old_x, (int)ball->old_x, 2*ball->radius, 2*ball->radius, (unsigned char*)ball->clearbitmap);
  	os_sem_send(&Draw);
 
+	os_sem_send(&freeball);
+	ball->running = false;
+	os_sem_send(&ball->block);
 	os_tsk_delete_self();
 }
 
@@ -377,41 +246,51 @@ __task void joyControl( void ) {
 	}
 }
 
-__task void checkCollision( void ) {
-	int i, j, dx, dy, r;
-	while(1) {
-		//collision detection loop thought all the balls and compare it with each other
-		os_sem_wait(&Collide, 0xFFFF);
-		for (i = 0; i < MAX_BALLS; i++){
-			for(j = 0; j < MAX_BALLS; j++){
-				if(i != j && ballParam[i]->active && ballParam[j]->active){
-					//calculate difference in distance x, y and radial distance between the two task
-					dx = (ballParam[i]->x - ballParam[j]->x);
-					dy = (ballParam[i]->y - ballParam[j]->y);
-					r = (2*ballParam[i]->radius + 2*ballParam[j]->radius)/2;
-					
-					//destory ball
-					if(dx*dx +dy*dy <= r*r){
-						ballParam[i]->active = false;
-						ballParam[j]->active = false;
-						balls -=2;
-
-						if(ballParam[userBall]->active == false){
-							//change user ball to the first active ball
-							userBall = 0;
-							while(!ballParam[userBall]->active && userBall < MAX_BALLS - 1)
-								userBall++; //iterate until an active ball is found
-						}
-					}
-				}
-			}
-		}
-		os_sem_send(&Collide);
-	}
-}
+// __task void checkCollision( void ) {
+// 	int i, j, dx, dy, r;
+// 	while(1) {
+// 		//collision detection loop thought all the balls and compare it with each other
+// 		os_sem_wait(&Collide, 0xFFFF);
+// 		for (i = 0; i < MAX_BALLS; i++){
+// 			for(j = 0; j < MAX_BALLS; j++){
+// 				if(i != j && ballParam[i]->active && ballParam[j]->active){
+// 					//calculate difference in distance x, y and radial distance between the two task
+// 					dx = (ballParam[i]->x - ballParam[j]->x);
+// 					dy = (ballParam[i]->y - ballParam[j]->y);
+// 					r = (2*ballParam[i]->radius + 2*ballParam[j]->radius)/2;
+// 					
+// 					//destory ball
+// 					if(dx*dx +dy*dy <= r*r){
+// 						ballParam[i]->active = false;
+// 						ballParam[j]->active = false;
+// 						//balls -=2;
+// 						
+// 						os_sem_send(&freeball);
+// 						os_sem_send(&freeball);
+// 						
+// 						if(ballParam[userBall]->active == false){
+// 							//change user ball to the first active ball
+// 							userBall = 0;
+// 							while(!ballParam[userBall]->active && userBall < MAX_BALLS - 1)
+// 								userBall++; //iterate until an active ball is found
+// 						}
+// // 						os_sem_wait(&Draw, 0xFFFF);
+// // 						GLCD_Bitmap ((int)ballParam[i]->x, (int)ballParam[i]->y, 2*ballParam[i]->radius, 2*ballParam[i]->radius, (unsigned char*)ballParam[i]->clearbitmap);
+// // 						GLCD_Bitmap ((int)ballParam[i]->old_x, (int)ballParam[i]->old_x, 2*ballParam[i]->radius, 2*ballParam[i]->radius, (unsigned char*)ballParam[i]->clearbitmap);
+// // 					
+// // 						GLCD_Bitmap ((int)ballParam[j]->x, (int)ballParam[j]->y, 2*ballParam[j]->radius, 2*ballParam[j]->radius, (unsigned char*)ballParam[j]->clearbitmap);
+// // 						GLCD_Bitmap ((int)ballParam[j]->old_x, (int)ballParam[j]->old_x, 2*ballParam[j]->radius, 2*ballParam[j]->radius, (unsigned char*)ballParam[j]->clearbitmap);
+// // 						os_sem_send(&Draw);
+// 					}
+// 				}
+// 			}
+// 		}
+// 		os_sem_send(&Collide);
+// 	}
+// }
 
 __task void init_task( void ) {
-  int debouncecount = 0, firstfree = 0;
+  int debouncecount = 0, firstfree = 0, i;
 	bool debounced = true;
 	// Increase the priority to intilize the task first, then allow them to start
 	os_tsk_prio_self ( 2 );
@@ -421,6 +300,8 @@ __task void init_task( void ) {
 	os_sem_init(&Rand, 1);
 	os_sem_init(&Create, 1);
 	os_sem_init(&Collide, 1);
+	os_sem_init(&Dist, 1);
+	os_sem_init(&freeball, 8);
 	
 	//first ball is created below because "create" is initally set to true
 	
@@ -428,43 +309,83 @@ __task void init_task( void ) {
 	os_tsk_create (readPoti_task, 1);
 	os_tsk_create (ballCountLED, 1);
 	os_tsk_create (joyControl, 1);
-	os_tsk_create (checkCollision, 1);
+	//os_tsk_create (checkCollision, 1);
 	
 	os_tsk_prio_self ( 1 );
 	
+	for(i = 0; i < 8; i++){
+		
+		os_sem_init(&(ballParam[i]->block), 1);
+		
+		//os_tsk_create_ex (ball_task, 1, (void*)ballParam[firstfree]);
+	}
+	
 	while(1){
+// 		create = true;
+// 		debounced = true;
 		if(!create){
 			debouncecount++;
 			if(debouncecount > 100){
 				debounced = true;
 				debouncecount = 0;
 			}
-		}else
-			debouncecount =0;
+		}
 			
 		//create ball
-		if(create && debounced ){
-			debounced = false;
-			if (balls < 8){
-				firstfree = 0;
-// 				while (ballParam[firstfree]->active && firstfree < 7)
-// 					firstfree++;//loop through to find the first free ball
-				
-				os_sem_wait(&Create, 0xFFFF);
-				create = false;
-				userBall = firstfree;
-				setRandom(ballParam[firstfree]);
-				os_tsk_create_ex (ball_task, 1, (void*)ballParam[firstfree]);
-				balls++;
-				os_sem_send(&Create);
+		if(create){
+			if(debounced){
+				debounced = false;
+				if (true){//balls < MAX_BALLS){
+					
+					os_sem_wait(&freeball, 0xFFFF);
+					firstfree = 0;
+					while (ballParam[firstfree] != NULL && ballParam[firstfree]->active && firstfree < MAX_BALLS - 1)
+						firstfree++;//loop through to find the first free ball
+					
+					if(!ballParam[firstfree]->active){
+						//bounceBall* ball = (ballParam[firstfree]);
+						os_sem_wait(&Create, 0xFFFF);
+						
+// 						ballParam[firstfree] = (bounceBall*)malloc(sizeof(bounceBall));
+// 						ballParam[firstfree]->active = true;
+// 						ballParam[firstfree]->clearbitmap = (unsigned char*)largeBallclear;
+						
+						userBall = firstfree;
+						os_tsk_create_ex (ball_task, 1, (void*)ballParam[firstfree]);
+						//balls++;
+						
+						os_sem_send(&Create);
+					}
+				}
 			}
-			else {
-				os_sem_wait(&Create, 0xFFFF);
-				create = false;
-				os_sem_send(&Create);
-			}
+			create = false;
 		}
 	}
+}
+
+void INT0Init() {
+
+	// P2.10 is related to the INT0 or the push button.
+	// P2.10 is selected for the GPIO 
+	LPC_PINCON->PINSEL4 &= ~(3<<20); 
+
+	// P2.10 is an input port
+	LPC_GPIO2->FIODIR   &= ~(1<<10); 
+
+	// P2.10 reads the falling edges to generate the IRQ
+	// - falling edge of P2.10
+	LPC_GPIOINT->IO2IntEnF |= (1 << 10);
+
+	// IRQ is enabled in NVIC. The name is reserved and defined in `startup_LPC17xx.s'.
+	// The name is used to implemet the interrupt handler above,
+	NVIC_EnableIRQ( EINT3_IRQn );
+}
+
+// INT0 interrupt handler
+void EINT3_IRQHandler( void ) {
+		create = true;
+	// Check whether the interrupt is called on the falling edge. GPIO Interrupt Status for Falling edge.
+		LPC_GPIOINT->IO2IntClr |= (1 << 10); // clear interrupt condition
 }
 
 int main( void ) {
@@ -479,12 +400,12 @@ int main( void ) {
 	
 	// peripherals initialization
 	LEDInit();
-	INT0Init(button_pressed_callback);
+	INT0Init();
 	ADCInit();
 	KBD_Init();
 	
 	//allocation all the ball structs and deactivate it
-	for( i = 0; i < 8; i++){
+	for( i = 0; i < MAX_BALLS; i++){
 		ballParam[i] = (bounceBall*)malloc(sizeof(bounceBall));
 		ballParam[i]->active = false;
  		//ballParam[i]->bitmap = (unsigned char*) malloc(sizeof(unsigned short));
