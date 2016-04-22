@@ -51,7 +51,7 @@ Print out info such as:
 Buckets
 Block indexies - forward and backward
 ****/
-// void print(void){
+// void print(void) {
 //     void*a = (void *) p_start;
 //     UnallocatedBlock_t* a0 = BucketArray[0];
 //     UnallocatedBlock_t* a1 = BucketArray[1];
@@ -97,7 +97,7 @@ Block indexies - forward and backward
 /****
 Prints the blocks -backwards 
 ****/
-// void PrintPrev(AllocatedBlock_t* pointer){
+// void PrintPrev(AllocatedBlock_t* pointer) {
 //     if((int)pointer == p_start){
 //         if(pointer->Allocated==0)
 //             printf("%d!",GetRelativeAddress(pointer));
@@ -117,29 +117,29 @@ Prints the blocks -backwards
 Converts the absolute address into relative address  
 ****/
 unsigned int GetRelativeAddress(void *pointer) {
- 		return (unsigned int)((unsigned int)pointer - ((unsigned int) p_start))>>5;
+ 	return (unsigned int)((unsigned int)pointer - ((unsigned int) p_start))>>5;
 }
 
 /****
 Converts the relative address into absolute address  
 ****/
 __inline void* GetAbsoluteAddress(unsigned int relativeAddress) {
-		return (void*)((relativeAddress<<5) + p_start);
+    return (void*)((relativeAddress<<5) + p_start);
 }
 
 /****
 Takes the log(base 2) of a number using bitwise
 ****/
 int log2(unsigned int size) {
-		int count = 0;
-		while(size >>= 1) count++;
-		return count;// + 1
+    int count = 0;
+    while(size >>= 1) count++;
+    return count;// + 1
 }
 
 /****
 Returns the correct size of the block 
 ****/
-unsigned int GetSize(unsigned int size){
+unsigned int GetSize(unsigned int size) {
     if (size == 0) size = 1024;
     return size;
 }
@@ -149,7 +149,7 @@ Finds the correct bucket based on size, and append the block into the doubly lin
 ****/
 void PushToBucket(UnallocatedBlock_t *pointer) {
     int bucketNum = log2(GetSize(pointer->Header.Size));
-    if(BucketArray[bucketNum] != NULL){
+    if(BucketArray[bucketNum] != NULL) {
         BucketArray[bucketNum]->PrevFree = pointer;
     }
     pointer->NextFree = BucketArray[bucketNum];
@@ -163,18 +163,18 @@ Remove the reference of an allocated block from the bucket array
 UnallocatedBlock_t* RemoveBlockFromBucket(UnallocatedBlock_t *pointer) {
     int bucketNum = log2(GetSize(pointer->Header.Size));
     //assign prevfree's next free pointer
-    if (BucketArray[bucketNum] == pointer) {// popping the first one on the list. there is no prev free
+    if(BucketArray[bucketNum] == pointer) {// popping the first one on the list. there is no prev free
         BucketArray[bucketNum] = pointer->NextFree;
-        if (BucketArray[bucketNum] != NULL)// only one thing in the bucket
+        if(BucketArray[bucketNum] != NULL)// only one thing in the bucket
             BucketArray[bucketNum]->PrevFree = NULL;
     }
-    else{
+    else {
         if(pointer->PrevFree != NULL)
             pointer->PrevFree->NextFree = pointer->NextFree;
         if(pointer->NextFree != NULL)
             pointer->NextFree->PrevFree = pointer->PrevFree;
     }
-		return pointer;
+	return pointer;
 }
 
 /****
@@ -185,11 +185,11 @@ __inline UnallocatedBlock_t *PopBucket(int chunks) {
     int bucketNum = log2((unsigned int) chunks);
     if(chunks > LowerLimit[bucketNum])
         bucketNum++;// +1 because you take the guaranteed bucket
-    if (bucketNum < 0 || bucketNum >= 11) // check if its outside the bucket array range
+    if(bucketNum < 0 || bucketNum >= 11) // check if its outside the bucket array range
         return NULL; 
-    while (BucketArray[bucketNum] == NULL) { 
+    while(BucketArray[bucketNum] == NULL) { 
         bucketNum++;
-        if (bucketNum >= 11) // check if its outside the bucket array range
+        if(bucketNum >= 11) // check if its outside the bucket array range
             return NULL;
     }
     return RemoveBlockFromBucket(BucketArray[bucketNum]);
@@ -200,7 +200,7 @@ Initializing the header for the entire memory block
 ****/
 void half_init(void) {
     int i = 0;
-    UnallocatedBlock_t *header = (UnallocatedBlock_t *) p_start;
+    UnallocatedBlock_t* header = (UnallocatedBlock_t*) p_start;
     header->Header.Allocated = 0;
     header->Header.NextBlock = 0;
     header->Header.PrevBlock = 0;
@@ -215,15 +215,15 @@ void half_init(void) {
 
 /****
 Takes an unallocated block and splits it into two, one being allocated and the other unallocated
-Returns the refrence to the allocated
+Returns the reference to the allocated
 Reinserts the unallocated block into the bucket array based on size remaining 
 ****/
 __inline AllocatedBlock_t *splitBlock(UnallocatedBlock_t *freeBlock, int numChunk) {
     UnallocatedBlock_t* SecondSplitBlock = (UnallocatedBlock_t*)((int)freeBlock + (numChunk*32));
-		unsigned int SecondSplitedBlockRelAddress = GetRelativeAddress(SecondSplitBlock);
+	unsigned int SecondSplitedBlockRelAddress = GetRelativeAddress(SecondSplitBlock);
     unsigned int sizeFreeTotal = GetSize(freeBlock->Header.Size);
 
-    AllocatedBlock_t *allocBlock = (AllocatedBlock_t *) freeBlock;
+    AllocatedBlock_t* allocBlock = (AllocatedBlock_t *) freeBlock;
     allocBlock->Size = (unsigned int) numChunk;
     allocBlock->Allocated = 1;
 
@@ -232,15 +232,15 @@ __inline AllocatedBlock_t *splitBlock(UnallocatedBlock_t *freeBlock, int numChun
     SecondSplitBlock->Header.Size = (unsigned int)(sizeFreeTotal - numChunk);
     SecondSplitBlock->Header.PrevBlock = GetRelativeAddress(allocBlock);
     SecondSplitBlock->Header.Allocated = 0;
-    if(allocBlock->LastBlock){
+    if(allocBlock->LastBlock) {
         allocBlock->LastBlock = 0;
         SecondSplitBlock->Header.LastBlock = 1;
         SecondSplitBlock->Header.NextBlock = 0;
     }
-    else{
+    else {
         ((AllocatedBlock_t*) GetAbsoluteAddress(allocBlock->NextBlock))->PrevBlock = SecondSplitedBlockRelAddress;
         SecondSplitBlock->Header.NextBlock = allocBlock->NextBlock;
-				SecondSplitBlock->Header.LastBlock = 0;
+        SecondSplitBlock->Header.LastBlock = 0;
     }
 
     allocBlock->NextBlock = SecondSplitedBlockRelAddress;
@@ -254,7 +254,7 @@ size is the number of bytes that the user wants to allocate
 return a pointer to the usable memory of the allocated block (address without header)
 ****/
 void *half_alloc(int size) {
-		UnallocatedBlock_t *freeBlock = NULL;
+	UnallocatedBlock_t* freeBlock = NULL;
     if (size <= 0 || size >32764)
         return NULL;
  		//size += 4; // 4 bytes are required for header
@@ -278,13 +278,13 @@ it checks the prev block and next block, and if any or all are free it coaleses 
 the approprate bucket array spot based on new free size
 ****/
 void half_free(void *pointer) {
-    UnallocatedBlock_t *CurrentBlockHeader = (UnallocatedBlock_t *) ((unsigned int)pointer - 4);
+    UnallocatedBlock_t* CurrentBlockHeader = (UnallocatedBlock_t *) ((unsigned int)pointer - 4);
     unsigned int size = GetSize(CurrentBlockHeader->Header.Size);
-	  UnallocatedBlock_t *FirstCoalesceBlock = CurrentBlockHeader;
-    UnallocatedBlock_t *LastCoalesceBlock = CurrentBlockHeader;
-    UnallocatedBlock_t *PrevBlock = (UnallocatedBlock_t *) GetAbsoluteAddress(CurrentBlockHeader->Header.PrevBlock);
-    UnallocatedBlock_t *NextBlock = (UnallocatedBlock_t *) GetAbsoluteAddress(CurrentBlockHeader->Header.NextBlock);
-    AllocatedBlock_t *NextBlockAfterCoalesce = NULL;
+	UnallocatedBlock_t* FirstCoalesceBlock = CurrentBlockHeader;
+    UnallocatedBlock_t* LastCoalesceBlock = CurrentBlockHeader;
+    UnallocatedBlock_t* PrevBlock = (UnallocatedBlock_t *) GetAbsoluteAddress(CurrentBlockHeader->Header.PrevBlock);
+    UnallocatedBlock_t* NextBlock = (UnallocatedBlock_t *) GetAbsoluteAddress(CurrentBlockHeader->Header.NextBlock);
+    AllocatedBlock_t* NextBlockAfterCoalesce = NULL;
 
 		//if prev is coalesable 
     if (PrevBlock->Header.Allocated==0 && (int)CurrentBlockHeader != p_start && PrevBlock != CurrentBlockHeader ) {
@@ -303,9 +303,9 @@ void half_free(void *pointer) {
     FirstCoalesceBlock->Header.Allocated = 0;
     FirstCoalesceBlock->Header.Size = size;
 		
-		//reseting header values for the new free sized block 
+    //reseting header values for the new free sized block 
     FirstCoalesceBlock->Header.NextBlock = LastCoalesceBlock->Header.NextBlock;
-    if (LastCoalesceBlock->Header.LastBlock) {//there is no nextblock
+    if (LastCoalesceBlock->Header.LastBlock) { //there is no next block
         FirstCoalesceBlock->Header.NextBlock = 0;
         FirstCoalesceBlock->Header.LastBlock = 1;
     }
